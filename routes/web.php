@@ -34,3 +34,20 @@ Route::group(['prefix'=>'/barang'],function(){
     Route::post('/store','BarangController@store')->name('barang.store');
     Route::get('/delete/{id}','BarangController@delete')->name('barang.delete');
 });
+Route::group(['prefix'=>'/pemasok'],function(){
+    Route::get('/','PemasokController@index')->name('pemasok.index');
+    Route::post('/store','PemasokController@store')->name('pemasok.store');
+    Route::get('/delete/{id}','PemasokController@delete')->name('pemasok.delete');
+});
+Route::group(['prefix'=>'/pelanggan'],function(){
+    Route::get('/','PelangganController@index')->name('pelanggan.index');
+    Route::post('/store','PelangganController@store')->name('pelanggan.store');
+    Route::get('/delete/{id}','PelangganController@delete')->name('pelanggan.delete');
+});
+Route::group(['prefix'=>'/users'],function(){
+    Route::get('/','UsersController@index')->name('users.index');
+    Route::post('/store','UsersController@store')->name('users.store');
+    Route::get('/delete/{id}','UsersController@delete')->name('users.delete');
+});
+
+
