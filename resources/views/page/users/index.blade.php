@@ -62,8 +62,8 @@
                             <input type="text" class="form-control" required id="email" name="email">
                             </div>
                             <div class="form-group">
-                            <label for="password" class="control-label">password</label>
-                            <input type="text" class="form-control" required id="password" name="password">
+                            <label for="password" class="control-label">password <span id="password_show" class="text-danger">Isi Password jika ingin merubahnya</span></label>
+                            <input type="text" class="form-control" id="password" name="password">
                             </div>
                             <div class="form-group">
                             <label for="hak_akses" class="control-label">Hak Akses</label>
@@ -85,11 +85,20 @@
 
 @section('js_after')
 <script>
-    function set_form(title, id,name, password, hak_akses ) {
+    function set_form(title, id,name, email, hak_akses ) {
+        var x = document.getElementById("password_show");
+  if (title=='Edit Data') {
+    document.getElementById("password").removeAttribute("required"); 
+    x.style.display = "block";
+  } else {
+    document.getElementById("password").setAttribute("required",""); 
+    x.style.display = "none";
+  }
         $('#titleModal').text(title);
         $('#id').val(id);
         $('#name').val(name);
-        $('#password').val(password);
+        $('#email').val(email);
+        $('#password').val("");
         $('#hak_akses').val(hak_akses);
     }
 

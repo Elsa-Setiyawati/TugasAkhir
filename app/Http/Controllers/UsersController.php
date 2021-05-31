@@ -21,11 +21,17 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+        $excep = ['_token', 'id'];
+        if (empty($request['password'])) { 
+            $excep = ['_token','id', 'password' ];
+        }else{
+            $request['password'] = bcrypt($request['password']);
+        }
         $data = DB::table('users')->updateOrInsert(
             [
                 'id' => $request->id
             ],
-            $request->except('_token', 'id')
+            $request->except($excep)
         );
         if ($data) {
             return redirect(route('users.index'));
