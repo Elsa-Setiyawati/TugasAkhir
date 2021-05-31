@@ -49,5 +49,13 @@ Route::group(['prefix'=>'/users'],function(){
     Route::post('/store','UsersController@store')->name('users.store');
     Route::get('/delete/{id}','UsersController@delete')->name('users.delete');
 });
+Route::group(['prefix'=>'/pembelian'],function(){
+    Route::get('/','pembelianController@index')->name('pembelian.index');
+    Route::get('/transaksi/{id?}/{action?}','pembelianController@transaksi')->name('pembelian.transaksi');
+    Route::post('/store','pembelianController@store')->name('pembelian.store');
+    Route::post('/save_transaksi','pembelianController@save_transaksi')->name('pembelian.save_transaksi');
+    Route::post('/return_store','pembelianController@return_store')->name('pembelian.return_store');
+    Route::get('/delete/{id}','pembelianController@delete')->name('pembelian.delete');
+});
 
 

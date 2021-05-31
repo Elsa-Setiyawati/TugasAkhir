@@ -21,7 +21,6 @@ class CreateReturPembelianTable extends Migration
             $table->date('rb_tgl');
             $table->string('rb_jml');
             $table->decimal('rb_harga', 15, 2);
-            $table->decimal('rb_total', 15, 2);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))->nullable();
         });
