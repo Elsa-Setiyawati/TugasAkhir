@@ -21,6 +21,8 @@
                 </div>
                 <div class="navbar-collapse">
                     <ul class="navbar-nav mr-auto mt-md-0">
+                    <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item dropdown">
@@ -67,7 +69,9 @@
                 <br/>
                 @yield('konten')
             </div>
-            <footer class="footer"> © 2018 Material Admin </footer>
+            <footer class="footer">  
+            <?php echo " " . (int)date('Y') . "" . "-"."Created by Els"; ?>
+        </footer>
         </div>
     </div>
     @include('layouts.partials.js')
