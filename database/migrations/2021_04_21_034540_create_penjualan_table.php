@@ -21,7 +21,7 @@ class CreatePenjualanTable extends Migration
             $table->unsignedInteger('jual_pelanggan_id');
             $table->foreign('jual_pelanggan_id')->references('pelanggan_id')->on('pelanggan')->onDelete('cascade');
             $table->decimal('jual_tot_jual', 15, 2);
-            $table->decimal('jual_tot_retur_jual', 15, 2);
+            $table->decimal('jual_tot_retur_jual', 15, 2)->default(0);
             $table->decimal('jual_diskon_jual', 15, 2);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))->nullable();

@@ -21,7 +21,7 @@ class CreatePembelianTable extends Migration
             $table->foreign('beli_user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('beli_pemasok_id')->references('pemasok_id')->on('pemasok')->onDelete('cascade');
             $table->decimal('beli_tot_beli' , 15, 2);
-            $table->decimal('beli_tot_retur_beli', 15, 2);
+            $table->decimal('beli_tot_retur_beli', 15, 2)->default(0);;
             $table->decimal('beli_diskon_beli', 15, 2);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))->nullable();
