@@ -57,5 +57,14 @@ Route::group(['prefix'=>'/pembelian'],function(){
     Route::post('/return_store','pembelianController@return_store')->name('pembelian.return_store');
     Route::get('/delete/{id}','pembelianController@delete')->name('pembelian.delete');
 });
+Route::group(['prefix'=>'/penjualan'],function(){
+    Route::get('/','penjualanController@index')->name('penjualan.index');
+    Route::get('/transaksi/{id?}/{action?}','penjualanController@transaksi')->name('penjualan.transaksi');
+    Route::post('/store','penjualanController@store')->name('penjualan.store');
+    Route::post('/save_transaksi','penjualanController@save_transaksi')->name('penjualan.save_transaksi');
+    Route::post('/return_store','penjualanController@return_store')->name('penjualan.return_store');
+    Route::get('/delete/{id}','penjualanController@delete')->name('penjualan.delete');
+});
+
 
 

@@ -17,7 +17,7 @@ class CreatePenjualanTable extends Migration
             $table->string('jual_no_nota');
             $table->date('jual_tgl');
             $table->unsignedInteger('jual_user_id');
-            $table->foreign('jual_user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('jual_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('jual_pelanggan_id');
             $table->foreign('jual_pelanggan_id')->references('pelanggan_id')->on('pelanggan')->onDelete('cascade');
             $table->decimal('jual_tot_jual', 15, 2);
