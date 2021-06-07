@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,9 @@ Route::get('/', function () {
 });
 
 Auth::routes([
-    'register' => false,
-    'reset' => false,
-    'verify' => false,
+    'register' => true,
+    'reset' => true,
+    'verify' => true,
 ]);
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -65,6 +66,10 @@ Route::group(['prefix'=>'/penjualan'],function(){
     Route::post('/return_store','penjualanController@return_store')->name('penjualan.return_store');
     Route::get('/delete/{id}','penjualanController@delete')->name('penjualan.delete');
 });
+Route::get('/lap_pembelian_periode', [LaporanController::class, 'lap_pembelian_periode']);
+Route::get('/lap_retur_pembelian_periode', [LaporanController::class, 'lap_retur_pembelian_periode']);
+Route::get('/lap_penjualan_periode', [LaporanController::class, 'lap_penjualan_periode']);
+Route::get('/lap_retur_penjualan_periode', [LaporanController::class, 'lap_retur_penjualan_periode']);
 
 
 

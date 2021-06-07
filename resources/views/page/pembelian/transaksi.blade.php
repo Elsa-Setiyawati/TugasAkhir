@@ -48,10 +48,11 @@
                                 @endforeach
                             </select>
                     </div>
-                    <div class="form-group col-4">
+                    <div class="form-group col-3">
                         <label for="beli_tot_beli" class="control-label">Nominal</label>
-                        <input type="number" readonly class="form-control" required id="beli_tot_beli" name="beli_tot_beli" value="{{($data->id) ? $data->beli->beli_tot_beli : ''}}">
+                        <input type="number" class="form-control" required id="beli_tot_beli" name="beli_tot_beli" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tot_beli : ''}}">
                     </div>
+                    
                     <div class="form-group col-4">
                         <label for="beli_diskon_beli" class="control-label">Potongan</label>
                         <input type="number" onchange="potongan(this.value)" class="form-control" id="beli_diskon_beli" name="beli_diskon_beli" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_diskon_beli : ''}}">
@@ -146,17 +147,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $no=1; $subtotal=0; @endphp
+                            @php $no=1; $subtotal_retur=0; @endphp
                             @foreach($data->retur_pembelian as $return)
-                            @php $tot = $return->rb_jml*$return->rb_harga; @endphp
-                            @php $subtotal = $subtotal + $tot; @endphp
+                            @php $tot_retur = $return->rb_jml*$return->rb_harga; @endphp
+                            @php $subtotal_retur = $subtotal_retur + $tot_retur; @endphp
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>@date($return->rb_tgl)</td>
                                 <td>{{$return->barang_nama}}</td>
                                 <td>{{$return->rb_jml}}</td>
                                 <td>@rp($return->rb_harga)</td>
-                                <td>@rp($tot)</td>
+                                <td>@rp($tot_retur)</td>
                             </tr>
                             @php $no++; @endphp
                             @endforeach
@@ -164,7 +165,7 @@
                         <tfood>
                             <tr>
                                 <th colspan="5" class="text-right">Total</th>
-                                <th  @if($data->action=='return') colspan="2" @endif>@rp($subtotal)</th>
+                                <th  @if($data->action=='return') colspan="2" @endif>@rp($subtotal_retur)</th> 
                             </tr>
                         </tfood>
                     </table>
@@ -282,8 +283,8 @@
 <script>
     var subtotal = '{{$subtotal}}';
     $("#beli_tot_beli").val(subtotal);
-    $("#beli_bayar").val(subtotal);
-    $("#beli_diskon_beli").val('0');
+    $("#beli_bayar").val(subtotal-val);
+    $("#beli_diskon_beli").val(val);
     function potongan(val){
         hasil = parseFloat(subtotal)-parseFloat(val);
         $("#beli_bayar").val(hasil);

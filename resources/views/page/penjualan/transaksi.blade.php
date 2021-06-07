@@ -105,7 +105,7 @@
                                 @if($data->action!='detail')
                                 <td>
                                 @if( $data->id==null) 
-                                <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$detail->djual_id}}', '{{$detail->djual_barang_id}}', '{{$detail->djual_jml}}', '{{$detail->djual_harga}}' )" data-whatever="@mdo">Edit</a>
+                                <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$detail->djual_id}}', '{{$detail->djual_barang_id}}', '{{$detail->djual_jml}}', '{{$detail->djual_harga}}', '{{$detail->barang_stok}}' )" data-whatever="@mdo">Edit</a>
                                     <a class="btn btn-danger text-white" onclick="del_data('{{$detail->djual_id}}')">Hapus</a>
                                     @elseif($data->action=='retur')
                                     <a class="btn btn-warning text-white" data-toggle="modal" data-target="#exampleModal1" onclick="set_form_retur('Retur Barang', '', '{{$detail->djual_jual_id}}', '{{$detail->djual_barang_id}}', '', '{{$detail->djual_jml}}', '{{$detail->djual_harga}}' )" data-whatever="@mdo">Retur</a>
@@ -146,17 +146,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $no=1; $subtotal=0; @endphp
+                            @php $no=1; $subtotal_retur=0; @endphp
                             @foreach($data->retur_penjualan as $return)
-                            @php $tot = $return->rj_jml*$return->rj_harga; @endphp
-                            @php $subtotal = $subtotal + $tot; @endphp
+                            @php $tot_retur = $return->rj_jml*$return->rj_harga; @endphp
+                            @php $subtotal_retur = $subtotal_retur + $tot_retur; @endphp
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>@date($return->rj_tgl)</td>
                                 <td>{{$return->barang_nama}}</td>
                                 <td>{{$return->rj_jml}}</td>
                                 <td>@rp($return->rj_harga)</td>
-                                <td>@rp($tot)</td>
+                                <td>@rp($tot_retur)</td>
                             </tr>
                             @php $no++; @endphp
                             @endforeach
@@ -164,7 +164,7 @@
                         <tfood>
                             <tr>
                                 <th colspan="5" class="text-right">Total</th>
-                                <th  @if($data->action=='return') colspan="2" @endif>@rp($subtotal)</th>
+                                <th  @if($data->action=='return') colspan="2" @endif>@rp($subtotal_retur)</th>
                             </tr>
                         </tfood>
                     </table>
@@ -205,7 +205,7 @@
                         </div>
                         <div class="form-group">
                             <label for="djual_jml" class="control-label">Jumlah</label>
-                            <input type="number" class="form-control" min="0" required id="djual_jml" name="djual_jml">
+                            <input type="number" class="form-control" max="{{$barang->barang_stok}}" required id="djual_jml" name="djual_jml">
                         </div>
                         <div class="form-group">
                             <label for="djual_harga" class="control-label">Harga</label>
@@ -282,8 +282,8 @@
 <script>
     var subtotal = '{{$subtotal}}';
     $("#jual_tot_jual").val(subtotal);
-    $("#jual_bayar").val(subtotal);
-    $("#jual_diskon_jual").val('0');
+    $("#jual_bayar").val(subtotal-val);
+    $("#jual_diskon_jual").val(val);
     function potongan(val){
         hasil = parseFloat(subtotal)-parseFloat(val);
         $("#jual_bayar").val(hasil);
@@ -310,7 +310,7 @@
         $('#rj_tgl').val(rj_tgl);
         $('#rj_jml').val(rj_jml);
         $('#rj_harga').val(rj_harga);
-        document.getElementById('rb_jml').max = rj_jml;
+        document.getElementById('rj_jml').max = rj_jml;
     }
 
     function del_data(id) {

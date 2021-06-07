@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BarangController extends Controller
 {
@@ -22,15 +23,33 @@ class BarangController extends Controller
 
     public function store(Request $request)
     {
-        $data = DB::table('barang')->updateOrInsert(
-            [
-                'barang_id' => $request->barang_id
-            ],
-            $request->except('_token', 'barang_id')
-        );
-        if ($data) {
-            return redirect(route('barang.index'));
+        if($request->barang_id==null) {
+            $barang_id = DB::table('barang')->insertGetId(
+                $request->except('_token', 'barang_id')
+            );
+            $save_kartu = DB::table('kartupersediaan')->insert([
+                'kp_tgl'=>Carbon::now(),
+                'kp_barang_id' => $barang_id,
+                'kp_jenis' => 'Persediaan Awal',
+                'kp_qty' =>  $request->barang_stok,
+                'kp_harga' =>  $request->barang_hargajual
+            ]);
+            if ($save_kartu) {
+                return redirect(route('barang.index'));
+            }
+
+        }else{
+            $data = DB::table('barang')->updateOrInsert(
+                [
+                    'barang_id' => $request->barang_id
+                ],
+                $request->except('_token', 'barang_id')
+            );
+            if ($data) {
+                return redirect(route('barang.index'));
+            }
         }
+        
         return redirect()->back();
     }
 

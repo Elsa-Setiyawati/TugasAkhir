@@ -46,7 +46,7 @@ class PenjualanController extends Controller
     {
         $data = DB::table('detail_penjualan')->updateOrInsert(
             [
-                'djual_id' => $request->dbeli_id
+                'djual_id' => $request->djual_id
             ],
             $request->except('_token', 'djual_id')
         );

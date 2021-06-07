@@ -10,8 +10,8 @@ class UsersTableSeeder extends Seeder
     // App\Model\User::create([
         DB::table('users')->insert([
             'name' => 'Admin',
-            'email' => 'elsae5797@gmail.com',
-            'password' => Hash::make('elsaelsa123'),
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('admin'),
             'hak_akses' => 'Admin'
      ]);
      
