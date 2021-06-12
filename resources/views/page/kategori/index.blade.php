@@ -11,7 +11,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
+                                <th>Nama Kategori</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -50,14 +50,14 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="kategori_id" name="kategori_id">
-                            <label for="kategori_nama" class="control-label">Nama</label>
+                            <label for="kategori_nama" class="control-label">Nama Kategori</label>
                             <input type="text" class="form-control" required id="kategori_nama" name="kategori_nama">
 
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>

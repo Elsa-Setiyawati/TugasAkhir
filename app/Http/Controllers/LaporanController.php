@@ -131,56 +131,73 @@ class LaporanController extends Controller
     //    dd($data);
         return view('page.laporan.lap_retur_penjualan_periode',  compact('data'));
     }
-
-
-
-    public function store(Request $request)
+    public function lap_kartu_gudang(Request $request)
     {
-        //
+        $data =  new \stdClass();
+        $data->barang = DB::table('barang')->get();
+        $data->barang_id = ($request->barang_id) ? $request->barang_id : $data->barang[0]->barang_id;
+        $data->enddate = ($request->enddate) ? $request->enddate : Carbon::now()->endOfMonth()->format('Y-m-d');
+        $data->startdate = ($request->startdate) ? $request->startdate : Carbon::now()->startOfMonth()->format('Y-m-d');
+        $data->barangpilih = DB::table('barang')->where('barang_id', $data->barang_id)->first();
+        $data->persediaan_awal = 0;
+        $persediaan_awal = DB::table('kartupersediaan')
+        ->where('kp_tgl', '<', $data->startdate)
+        ->where('kp_barang_id', $data->barang_id)
+        ->join('barang', 'barang_id', 'kp_barang_id')
+        ->orderby('kp_tgl', 'asc')->get();
+        foreach($persediaan_awal as $pa){
+            if($pa->kp_jenis == 'Persediaan Awal' || $pa->kp_jenis == 'masuk'){
+                $data->persediaan_awal = $data->persediaan_awal + $pa->kp_qty;
+            }elseif ($pa->kp_jenis == 'keluar') {
+                $data->persediaan_awal = $data->persediaan_awal - $pa->kp_qty;
+            }
+        }
+        //start variable buat ambil data pembiayaan, before get
+        $kartupersediaan = DB::table('kartupersediaan')
+        ->join('barang', 'barang_id', 'kp_barang_id')
+        ->where('kp_barang_id', $data->barang_id)
+        ->whereBetween('kp_tgl', [$data->startdate, $data->enddate])
+        ->orderby('kp_tgl', 'asc');
+
+
+        //start variable buat ambil data pembiayaan
+        $data->list = $kartupersediaan->get();
+    //    dd($data);
+        return view('page.laporan.kartu_gudang',  compact('data'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function lap_kartu_persediaan(Request $request)
     {
-        //
-    }
+        $data =  new \stdClass();
+        $data->barang = DB::table('barang')->get();
+        $data->barang_id = ($request->barang_id) ? $request->barang_id : $data->barang[0]->barang_id;
+        $data->enddate = ($request->enddate) ? $request->enddate : Carbon::now()->endOfMonth()->format('Y-m-d');
+        $data->startdate = ($request->startdate) ? $request->startdate : Carbon::now()->startOfMonth()->format('Y-m-d');
+        $data->barangpilih = DB::table('barang')->where('barang_id', $data->barang_id)->first();
+        $data->persediaan_awal = 0;
+        $persediaan_awal = DB::table('kartupersediaan')
+        ->where('kp_tgl', '<', $data->startdate)
+        ->where('kp_barang_id', $data->barang_id)
+        ->join('barang', 'barang_id', 'kp_barang_id')
+        ->orderby('kp_tgl', 'asc')->get();
+        foreach($persediaan_awal as $pa){
+            if($pa->kp_jenis == 'Persediaan Awal' || $pa->kp_jenis == 'masuk'){
+                $data->persediaan_awal = $data->persediaan_awal + $pa->kp_qty;
+            }elseif ($pa->kp_jenis == 'keluar') {
+                $data->persediaan_awal = $data->persediaan_awal - $pa->kp_qty;
+            }
+        }
+        //start variable buat ambil data pembiayaan, before get
+        $kartupersediaan = DB::table('kartupersediaan')
+        ->join('barang', 'barang_id', 'kp_barang_id')
+        ->where('kp_barang_id', $data->barang_id)
+        ->whereBetween('kp_tgl', [$data->startdate, $data->enddate])
+        ->orderby('kp_tgl', 'asc');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        //start variable buat ambil data pembiayaan
+        $data->list = $kartupersediaan->get();
+    //    dd($data);
+        return view('page.laporan.kartu_persediaan',  compact('data'));
     }
 }

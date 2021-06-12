@@ -70,6 +70,8 @@ Route::get('/lap_pembelian_periode', [LaporanController::class, 'lap_pembelian_p
 Route::get('/lap_retur_pembelian_periode', [LaporanController::class, 'lap_retur_pembelian_periode']);
 Route::get('/lap_penjualan_periode', [LaporanController::class, 'lap_penjualan_periode']);
 Route::get('/lap_retur_penjualan_periode', [LaporanController::class, 'lap_retur_penjualan_periode']);
+Route::get('/lap_kartu_gudang', [LaporanController::class, 'lap_kartu_gudang']);
+Route::get('/lap_kartu_persediaan', [LaporanController::class, 'lap_kartu_persediaan']);
 
 
 

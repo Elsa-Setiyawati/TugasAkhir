@@ -52,30 +52,3 @@
 
 
 @endsection
-
-@section('js_after')
-<script>
-    function set_form(title, pelanggan_id, pelanggan_nama, pelanggan_alamat, pelanggan_notelp ) {
-        $('#titleModal').text(title);
-        $('#pelanggan_id').val(pelanggan_id);
-        $('#pelanggan_nama').val(pelanggan_nama);
-        $('#pelanggan_alamat').val(pelanggan_alamat);
-        $('#pelanggan_notelp').val(pelanggan_notelp);
-    }
-
-    function del_data(id) {
-        swal({
-            title: "Hapus Data",
-            text: "Anda Yakin Menghapus Data ini ?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Ya, Hapus!",
-            cancelButtonText: "Tidak",
-            confirmButtonColor: "#DD6B55",
-            closeOnConfirm: false
-        }, function() {
-            window.location.href = window.location.origin + "/pelanggan/delete/" + id;
-        });
-    }
-</script>
-@endsection

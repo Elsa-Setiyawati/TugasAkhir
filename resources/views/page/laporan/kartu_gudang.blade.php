@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title','Laporan Penjualan Per Periode')
+@section('title','Laporan Kartu Gudang')
 @section('konten')
 <div class="row">
     <div class="col-12">
@@ -11,56 +11,60 @@
             <btn class="btn btn-secondary btn-sm" onclick="printDiv('print')">Print</btn>
         </div>
         <div id="print" class="block-content">
-            <div class="font-w600 text-uppercase text-center"><b>Laporan Penjualan Per Periode</b></div>
+            <div class="font-w600 text-uppercase text-center"><b> Kartu Gudang</b></div>
             <div class="font-w600 text-uppercase text-center"><b> TOKO BINTANG ELEKTRONIK</b></div>
             <div class="font-w600 text-uppercase text-center">periode @date($data->startdate) s.d @date($data->enddate)</div><br />
+            <div class="font-w600 text-uppercase text-left"><b> Nama Barang : {{$data->barangpilih->barang_nama}} </b></div> <br>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th class="text-center">No</th>
-                            <th class="text-center">No Faktur Jual</th>
                             <th class="text-center">Tanggal</th>
-                            <th class="text-center">User</th>
-                            <th class="text-center">Pelanggan</th>
-                            <th class="text-center">Nama Barang</th>
-                            <th class="text-center">Qty</th>
-                            <th class="text-center">Harga</th>
-                            <th class="text-center" >Total</a></th>
+                            <th class="text-center">Pembelian</th>
+                            <th class="text-center">Penjualan</th>
+                            <th class="text-center">Sisa</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php $no=1; $jual_tot_jual=0; @endphp
+                        @php $no=1; $sisa = 0;   @endphp
+                        @if($data->persediaan_awal>0)
+                        <tr>
+                            <td class="font-w600 text-center">{{($no=1)}}</td>
+                            <td class="font-w600 text-center">@date($data->startdate) </td>
+                            <td class="font-w600 text-center"></td>
+                            <td class="font-w600 text-center"></td>
+                            <td class="font-w600 text-center">{{($data->persediaan_awal)}}</td>
+                        </tr>
+                        @php $no=1+1; $sisa = $data->persediaan_awal;  @endphp
+                        @endif
                         @foreach($data->list as $list)
-                        @php $tot = $list->djual_jml*$list->djual_harga; @endphp
-                        @php $jual_tot_jual = $jual_tot_jual + $tot; @endphp
+                        @if($list->kp_jenis == 'Persediaan Awal' || $list->kp_jenis == 'masuk')
+                        @php $sisa = $sisa + $list->kp_qty; @endphp
+                        @elseif($list->kp_jenis == 'keluar')
+                        @php $sisa = $sisa - $list->kp_qty; @endphp
+                        @endif
                         <tr>
                             <td class="font-w600 text-center">{{($no)}}</td>
-                            <td class="font-w600 text-center">{{($list->jual_no_nota)}}</td>
-                            <td class="font-w600 text-center">@date($list->jual_tgl) </td>
-                            <td class="font-w600 text-center">{{($list->name)}}</td>
-                            <td class="font-w600 text-center">{{($list->pelanggan_nama)}}</td>
-                            <td class="font-w600 text-center">{{($list->barang_nama)}}</td>
-                            <td class="font-w600 text-center">{{($list->djual_jml)}}</td>
-                            <td class="font-w600 text-center">@rp($list->djual_harga)</td>
-                            <td class="text-right">@rp($tot)</td>
+                            <td class="font-w600 text-center">@date($list->kp_tgl) </td>
+                            <td class="font-w600 text-center">
+                            @if($list->kp_jenis == 'masuk'){{($list->kp_qty)}}@endif
+                            </td>
+                            <td class="font-w600 text-center">
+                            @if($list->kp_jenis == 'keluar'){{($list->kp_qty)}}@endif
+                            </td>
+                            <td class="font-w600 text-center">{{($sisa)}}</td>
                         </tr>
-                        @php $no=$no+1; @endphp 
+                        @php $no++; @endphp 
                         @endforeach
                     </tbody>
-                    <tfood>
-                            <tr>
-                                <th colspan="7" class="text-right">Total</th>
-                                <th colspan="2">@rp($jual_tot_jual)</th>
-                            </tr>
-                        </tfood>
                 </table>
             </div>
         </div>
     </div>
 <div class="modal fade " data-backdrop="false" id="modal-fromleft" width="600px" tabindex="+1" role="dialog" aria-labelledby="smallmodalLabel" >
     <div class="modal-dialog modal-md" role="document">
-    <form action="/lap_penjualan_periode" method="get">
+    <form action="/lap_kartu_gudang" method="get">
     <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="smallmodalLabel">Periode Laporan</h5>
@@ -70,6 +74,24 @@
             </div>
             <div class="modal-body">
             <div class="form-group row">
+                            <div class="col-12">
+                                <div class="form-material">
+                                <label for="barang_id" class="control-label">Barang</label>
+                                <select
+                                    required
+                                    id="barang_id"
+                                    class="form-control select2"
+                                    name="barang_id"
+                                    data-placeholder="Pilih Barang" data-allow-clear="true"
+                                    
+                                >
+                                <option value="">==Pilih Data==</option>
+                                    @foreach(@$data->barang as $barang)
+                                        <option value="{{ $barang->barang_id }}" @if($barang->barang_id==$data->barang_id) selected @endif >{{ $barang->barang_nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            </div>
                             <div class="col-6">
                                 <div class="form-material">
                                 <label for="startdate">Mulai</label>

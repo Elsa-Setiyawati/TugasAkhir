@@ -12,11 +12,13 @@
         </div>
         <div id="print" class="block-content">
             <div class="font-w600 text-uppercase text-center"><b>Laporan Pembelian Per Periode</b></div>
+            <div class="font-w600 text-uppercase text-center"><b> TOKO BINTANG ELEKTRONIK</b></div>
             <div class="font-w600 text-uppercase text-center">periode @date($data->startdate) s.d @date($data->enddate)</div><br />
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th class="text-center">No</th>
                             <th class="text-center">No Faktur Beli</th>
                             <th class="text-center">Tanggal</th>
                             <th class="text-center">User</th>
@@ -33,6 +35,7 @@
                         @php $tot = $list->dbeli_jml*$list->dbeli_harga; @endphp
                         @php $beli_tot_beli = $beli_tot_beli + $tot; @endphp
                         <tr>
+                            <td class="font-w600 text-center">{{($no)}}</td>
                             <td class="font-w600 text-center">{{($list->beli_no_nota)}}</td>
                             <td class="font-w600 text-center">@date($list->beli_tgl) </td>
                             <td class="font-w600 text-center">{{($list->name)}}</td>
@@ -42,7 +45,7 @@
                             <td class="font-w600 text-center">@rp($list->dbeli_harga)</td>
                             <td class="text-right">@rp($tot)</td>
                         </tr>
-                        @php $no++; @endphp 
+                        @php  $no=$no+1; @endphp 
                         @endforeach
                     </tbody>
                     <tfood>

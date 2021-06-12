@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use App\Helpers\Helper;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -64,7 +65,7 @@ class PembelianController extends Controller
         );
         $detail_pembelian = DB::table('detail_pembelian')->join('barang', 'barang_id', 'dbeli_barang_id')->whereNull('dbeli_beli_id')->get();
         foreach($detail_pembelian as $detail){
-            $save_barang = DB::table('barang')->where('barang_id', $detail->dbeli_barang_id)->update(['barang_stok' => $detail->barang_stok+$detail->dbeli_jml]);
+            $save_barang = DB::table('barang')->where('barang_id', $detail->dbeli_barang_id)->update(['barang_stok' => $detail->barang_stok+$detail->dbeli_jml, 'barang_hargabeli' => $detail->dbeli_harga]);
             $save_kartu = DB::table('kartupersediaan')->insert([
                 'kp_tgl' => $request->beli_tgl,
                 'kp_barang_id' => $detail->barang_id,
@@ -72,6 +73,7 @@ class PembelianController extends Controller
                 'kp_qty' =>  $detail->dbeli_jml,
                 'kp_harga' =>  $detail->dbeli_harga
                 ]);
+                Helper::harga_terbaru($detail->dbeli_barang_id);
         }
         $save_barang_beli = DB::table('detail_pembelian')->whereNull('dbeli_beli_id')->update(['dbeli_beli_id' => $id]);
         if ($id) {
@@ -100,6 +102,7 @@ class PembelianController extends Controller
             $nominal_retur = $nominal_retur + ($detail->rb_jml*$detail->rb_harga);
         }
         $save_barang_beli = DB::table('pembelian')->where('beli_id', $request->rb_beli_id)->update(['beli_tot_retur_beli' => $nominal_retur]);
+        Helper::harga_terbaru($returbarang->rb_barang_id);
         if ($id) {
             return redirect(route('pembelian.index'));
         }

@@ -11,11 +11,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
+                                <th>Nama Barang</th>
                                 <th>Kategori</th>
                                 <th>Stok</th>
-                                <th>Harga Jual</th>
                                 <th>Harga Beli</th>
+                                <th>Harga Jual</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -27,8 +27,8 @@
                                 <td>{{$list->barang_nama}}</td>
                                 <td>{{$list->kategori_nama}}</td>
                                 <td>{{$list->barang_stok}}</td>
-                                <td>@rp($list->barang_hargajual)</td>
                                 <td>@rp($list->barang_hargabeli)</td>
+                                <td>@rp($list->barang_hargajual)</td>   
                                 <td>
                                     <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->barang_id}}', '{{$list->barang_nama}}', '{{$list->barang_hargabeli}}', '{{$list->barang_hargajual}}', '{{$list->barang_stok}}', '{{$list->barang_kategori_id}}' )" data-whatever="@mdo">Edit</a>
                                     <a class="btn btn-danger text-white" onclick="del_data('{{$list->barang_id}}')">Hapus</a>
@@ -58,7 +58,7 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="barang_id" name="barang_id">
-                            <label for="barang_nama" class="control-label">Nama</label>
+                            <label for="barang_nama" class="control-label">Nama Barang</label>
                             <input type="text" class="form-control" required id="barang_nama" name="barang_nama">
                         </div>
                         <div class="form-group">
@@ -74,8 +74,9 @@
                             <input type="number" min="0" class="form-control" required id="barang_stok" name="barang_stok">
                         </div>
                         <div class="form-group">
-                            <label for="barang_kategori_id" class="control-label">Kategori</label>
+                            <label for="barang_kategori_id" class="control-label" >Kategori</label>
                             <select
+                            required
                                 id="barang_kategori_id"
                                 class="form-control select2"
                                 name="barang_kategori_id"

@@ -21,8 +21,8 @@
                 <li><a href="/lap_retur_pembelian_periode">Laporan Retur Pembelian</a></li>
                 <li><a href="/lap_penjualan_periode">Laporan Penjualan</a></li>
                 <li><a href="/lap_retur_penjualan_periode">Laporan Retur Penjualan</a></li>
-                <li><a href="javascript:angular">Kartu Gudang </a></li>
-                <li><a href="../material-rtl/index4.html">Kartu Persediaan</a></li>
+                <li><a href="/lap_kartu_gudang">Kartu Gudang </a></li>
+                <li><a href="/lap_kartu_persediaan">Kartu Persediaan</a></li>
             </ul>
         </li>
     </ul>

@@ -12,6 +12,7 @@
         </div>
         <div id="print" class="block-content">
             <div class="font-w600 text-uppercase text-center"><b>Laporan Retur Pembelian Per Periode</b></div>
+            <div class="font-w600 text-uppercase text-center"><b> TOKO BINTANG ELEKTRONIK</b></div>
             <div class="font-w600 text-uppercase text-center">periode @date($data->startdate) s.d @date($data->enddate)</div><br />
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -40,7 +41,7 @@
                             <td class="font-w600 text-center">@rp($list->rb_harga)</td>
                             <td class="text-right">@rp($tot)</td>
                         </tr>
-                        @php $no++; @endphp 
+                        @php $no=1+1; @endphp 
                         @endforeach
                     </tbody>
                     <tfood>
