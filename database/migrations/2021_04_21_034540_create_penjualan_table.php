@@ -15,7 +15,7 @@ class CreatePenjualanTable extends Migration
         Schema::create('penjualan', function (Blueprint $table) {
             $table->increments('jual_id');
             $table->string('jual_no_nota');
-            $table->date('jual_tgl');
+            $table->date('jual_tgl')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('jual_user_id');
             $table->foreign('jual_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('jual_pelanggan_id');

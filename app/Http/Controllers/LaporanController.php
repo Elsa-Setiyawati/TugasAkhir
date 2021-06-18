@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Helpers\Helper;
 use Illuminate\Support\Facades\DB;
 
 class LaporanController extends Controller
@@ -193,6 +194,8 @@ class LaporanController extends Controller
         ->where('kp_barang_id', $data->barang_id)
         ->whereBetween('kp_tgl', [$data->startdate, $data->enddate])
         ->orderby('kp_tgl', 'asc');
+
+        $data->awalan = Helper::persediaan_awal($data->barang_id, $data->startdate);
 
 
         //start variable buat ambil data pembiayaan

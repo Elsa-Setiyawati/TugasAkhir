@@ -7,16 +7,12 @@
             <div class="card-body">
                 <form action="/penjualan/save_transaksi" class="row" method="post">
                 @csrf
-                    <div class="form-group col-3">
+                    <div class="form-group col-4">
                         <input type="hidden" class="form-control" id="jual_id" name="jual_id" value="{{($data->id) ? $data->jual->jual_id : ''}}">
                         <label for="jual_tgl" class="control-label">Tanggal</label>
-                        <input type="date" class="form-control" required id="jual_tgl" name="jual_tgl" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->jual->jual_tgl : ''}}">
+                        <input type="date" class="form-control" required id="jual_tgl" name="jual_tgl" readonly value="{{($data->id) ? $data->jual->jual_tgl : $data->date}}">
                     </div>
-                    <div class="form-group col-3">
-                        <label for="jual_no_nota" class="control-label">Faktur</label>
-                        <input type="text" class="form-control" required id="jual_no_nota" name="jual_no_nota" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->jual->jual_no_nota : ''}}">
-                    </div>
-                    <div class="form-group col-3">
+                    <div class="form-group col-4">
                         <label for="jual_pelanggan_id" class="control-label">Pelanggan</label>
                         <select
                                 id="jual_pelanggan_id"
@@ -32,7 +28,7 @@
                                 @endforeach
                             </select>
                     </div>
-                    <div class="form-group col-3">
+                    <div class="form-group col-4">
                         <label for="jual_user_id" class="control-label">Pengguna</label>
                         <select
                                 id="jual_user_id"
@@ -105,10 +101,10 @@
                                 @if($data->action!='detail')
                                 <td>
                                 @if( $data->id==null) 
-                                <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$detail->djual_id}}', '{{$detail->djual_barang_id}}', '{{$detail->djual_jml}}', '{{$detail->djual_harga}}', '{{$detail->barang_stok}}' )" data-whatever="@mdo">Edit</a>
+                                <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$detail->djual_id}}', '{{$detail->djual_barang_id}}', '{{$detail->djual_jml}}', '{{$detail->djual_harga}}', '{{$detail->djual_hargapokok}}' )" data-whatever="@mdo">Edit</a>
                                     <a class="btn btn-danger text-white" onclick="del_data('{{$detail->djual_id}}')">Hapus</a>
                                     @elseif($data->action=='retur')
-                                    <a class="btn btn-warning text-white" data-toggle="modal" data-target="#exampleModal1" onclick="set_form_retur('Retur Barang', '', '{{$detail->djual_jual_id}}', '{{$detail->djual_barang_id}}', '', '{{$detail->djual_jml}}', '{{$detail->djual_harga}}' )" data-whatever="@mdo">Retur</a>
+                                    <a class="btn btn-warning text-white" data-toggle="modal" data-target="#exampleModal1" onclick="set_form_retur('Retur Barang', '', '{{$detail->djual_jual_id}}', '{{$detail->djual_barang_id}}', '', '{{$detail->djual_jml}}', '{{$detail->djual_harga}}', '{{$detail->djual_hargapokok}}' )" data-whatever="@mdo">Retur</a>
                                     @endif
                                 </td>
                                 @endif
@@ -188,9 +184,10 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="djual_id" name="djual_id">
+                            <input type="hidden" class="form-control" id="djual_hargapokok" name="djual_hargapokok">
                             <label for="djual_barang_id" class="control-label">Barang</label>
                             <select
-                                required
+                                readonly required 
                                 id="djual_barang_id"
                                 class="form-control select2"
                                 name="djual_barang_id"
@@ -199,7 +196,7 @@
                             >
                             <option value="">==Pilih Data==</option>
                                 @foreach(@$data->barang as $barang)
-                                    <option harga="{{ $barang->barang_hargajual }}" value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
+                                    <option harga="{{ $barang->barang_hargapokok + ($barang->barang_margin/100 * $barang->barang_hargapokok) }}" djual_hargapokok="{{$barang->barang_hargapokok}}" value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -209,7 +206,7 @@
                         </div>
                         <div class="form-group">
                             <label for="djual_harga" class="control-label">Harga</label>
-                            <input type="text" class="form-control" min="0" required id="djual_harga" name="djual_harga">
+                            <input type="text" min="0" readonly class="form-control"  required id="djual_harga" name="djual_harga">
                         </div>
                     </form>
                 </div>
@@ -237,9 +234,10 @@
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="rj_id" name="rj_id">
                             <input type="hidden" class="form-control" id="rj_jual_id" name="rj_jual_id" >
+                            <input type="hidden" class="form-control" id="rj_hargapokok" name="rj_hargapokok" >
                             <label for="rj_barang_id" class="control-label">Barang</label>
                             <select
-                                required
+                            readonly required 
                                 id="rj_barang_id"
                                 class="form-control select2"
                                 name="rj_barang_id"
@@ -248,7 +246,7 @@
                             >
                             <option value="">==Pilih Data==</option>
                                 @foreach(@$data->barang as $barang)
-                                    <option harga="{{ $barang->barang_hargajual }}" readonly value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
+                                    <option harga="{{ $barang->barang_hargapokok + ($barang->barang_margin/100 * $barang->barang_hargapokok)}}" readonly value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -290,19 +288,22 @@
     }
     function get_select(){
         let harga = $("#djual_barang_id option:selected").attr('harga');
+        let djual_hargapokok = $("#djual_barang_id option:selected").attr('djual_hargapokok');
         $("#djual_harga").val(harga);
+        $("#djual_hargapokok").val(djual_hargapokok);
     }
     
 
-    function set_form(title, djual_id, djual_barang_id, djual_jml, djual_harga) {
+    function set_form(title, djual_id, djual_barang_id, djual_jml, djual_harga, djual_hargapokok) {
         $('#titleModal').text(title);
         $('#djual_id').val(djual_id);
         $('#djual_barang_id').val(djual_barang_id);
         $('#djual_jml').val(djual_jml);
         $('#djual_harga').val(djual_harga);
+        $('#djual_hargapokok').val(djual_hargapokok);
     }
 
-    function set_form_retur(title, rj_id, rj_jual_id, rj_barang_id, rj_tgl, rj_jml, rj_harga) {
+    function set_form_retur(title, rj_id, rj_jual_id, rj_barang_id, rj_tgl, rj_jml, rj_harga, rj_hargapokok) {
         $('#titleModal_retur').text(title);
         $('#rj_id').val(rj_id);
         $('#rj_jual_id').val(rj_jual_id);
@@ -310,6 +311,7 @@
         $('#rj_tgl').val(rj_tgl);
         $('#rj_jml').val(rj_jml);
         $('#rj_harga').val(rj_harga);
+        $('#rj_hargapokok').val(rj_hargapokok);
         document.getElementById('rj_jml').max = rj_jml;
     }
 

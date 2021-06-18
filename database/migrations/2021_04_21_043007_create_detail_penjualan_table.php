@@ -20,6 +20,7 @@ class CreateDetailPenjualanTable extends Migration
             $table->foreign('djual_barang_id')->references('barang_id')->on('barang')->onDelete('cascade');
             $table->string('djual_jml');
             $table->decimal('djual_harga', 15, 2);
+            $table->decimal('djual_hargapokok', 15, 2);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))->nullable();
         });

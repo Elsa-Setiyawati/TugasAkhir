@@ -10,8 +10,7 @@
                     <table id="mydatatable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Faktur</th>
+                                <th>No Faktur</th>
                                 <th>Tanggal</th>
                                 <th>Pemasok</th>
                                 <th>Nominal</th>
@@ -26,8 +25,7 @@
                             @foreach($data->list as $list)
                             @php $tot = $list->beli_tot_beli - $list->beli_diskon_beli; @endphp
                             <tr>
-                                <td>{{$no}}</td>
-                                <td>{{$list->beli_no_nota}}</td>
+                                <td>BL-{{$list->beli_id}}</td>
                                 <td>@date($list->beli_tgl)</td>
                                 <td>{{$list->pemasok_nama}}</td>
                                 <td>@rp($list->beli_tot_beli)</td>

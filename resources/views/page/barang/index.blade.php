@@ -13,9 +13,10 @@
                                 <th>No</th>
                                 <th>Nama Barang</th>
                                 <th>Kategori</th>
+                                <th>Persentase Laba (%)</th>
                                 <th>Stok</th>
                                 <th>Harga Beli</th>
-                                <th>Harga Jual</th>
+                                <th>Harga Pokok</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -26,11 +27,12 @@
                                 <td>{{$no}}</td>
                                 <td>{{$list->barang_nama}}</td>
                                 <td>{{$list->kategori_nama}}</td>
+                                <td>{{$list->barang_margin}}</td>
                                 <td>{{$list->barang_stok}}</td>
                                 <td>@rp($list->barang_hargabeli)</td>
-                                <td>@rp($list->barang_hargajual)</td>   
+                                <td>@rp($list->barang_hargapokok)</td>   
                                 <td>
-                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->barang_id}}', '{{$list->barang_nama}}', '{{$list->barang_hargabeli}}', '{{$list->barang_hargajual}}', '{{$list->barang_stok}}', '{{$list->barang_kategori_id}}' )" data-whatever="@mdo">Edit</a>
+                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->barang_id}}', '{{$list->barang_nama}}', '{{$list->barang_margin}}', '{{$list->barang_stok}}', '{{$list->barang_hargabeli}}', '{{$list->barang_hargapokok}}', '{{$list->barang_kategori_id}}',)" data-whatever="@mdo">Edit</a>
                                     <a class="btn btn-danger text-white" onclick="del_data('{{$list->barang_id}}')">Hapus</a>
 
                                 </td>
@@ -62,17 +64,21 @@
                             <input type="text" class="form-control" required id="barang_nama" name="barang_nama">
                         </div>
                         <div class="form-group">
-                            <label for="barang_hargabeli" class="control-label">Harga Beli</label>
-                            <input type="number" min="0" class="form-control" required id="barang_hargabeli" name="barang_hargabeli">
-                        </div>
-                        <div class="form-group">
-                            <label for="barang_hargajual" class="control-label">Harga Jual</label>
-                            <input type="number" min="0" class="form-control" required id="barang_hargajual" name="barang_hargajual">
+                            <label for="barang_margin" class="control-label">Persentase Laba (%)</label>
+                            <input type="number" min="0" class="form-control" required id="barang_margin" name="barang_margin">
                         </div>
                         <div class="form-group">
                             <label for="barang_stok" class="control-label">Stok</label>
                             <input type="number" min="0" class="form-control" required id="barang_stok" name="barang_stok">
                         </div>
+                        <div class="form-group">
+                            <label for="barang_hargabeli" class="control-label">Harga Beli</label>
+                            <input type="number" min="0" class="form-control" required id="barang_hargabeli" name="barang_hargabeli">
+                        </div>
+                        <div class="form-group">
+                            <label for="barang_hargapokok" class="control-label">Harga Pokok</label>
+                            <input type="number" min="0" class="form-control" required id="barang_hargapokok" name="barang_hargapokok">
+                        </div>                       
                         <div class="form-group">
                             <label for="barang_kategori_id" class="control-label" >Kategori</label>
                             <select
@@ -105,13 +111,14 @@
 
 @section('js_after')
 <script>
-    function set_form(title, barang_id, barang_nama, barang_hargabeli, barang_hargajual, barang_stok, barang_kategori_id) {
+    function set_form(title, barang_id, barang_nama, barang_margin, barang_stok, barang_hargabeli, barang_hargapokok,barang_kategori_id) {
         $('#titleModal').text(title);
         $('#barang_id').val(barang_id);
-        $('#barang_nama').val(barang_nama);
-        $('#barang_hargabeli').val(barang_hargabeli);
-        $('#barang_hargajual').val(barang_hargajual);
+        $('#barang_nama').val(barang_nama); 
+        $('#barang_margin').val(barang_margin); 
         $('#barang_stok').val(barang_stok);
+        $('#barang_hargabeli').val(barang_hargabeli);
+        $('#barang_hargapokok').val(barang_hargapokok);
         $('#barang_kategori_id').val(barang_kategori_id);
     }
 

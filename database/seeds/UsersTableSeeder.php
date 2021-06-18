@@ -9,26 +9,29 @@ class UsersTableSeeder extends Seeder
     {
     // App\Model\User::create([
         DB::table('users')->insert([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin'),
-            'hak_akses' => 'Admin'
+            'name' => 'Admin Gudang',
+            'email' => 'admingudang@gmail.com',
+            'password' => Hash::make('admingudang'),
+            'hak_akses' => 'Admin Gudang',
+            'role_id' => 1
      ]);
      
     //  App\Model\User::create([
         DB::table('users')->insert([
-            'name' => 'Kasir',
-            'email' => 'kasir@gmail.com',
-            'password' => Hash::make('kasir'),
-            'hak_akses' => 'Kasir'
+            'name' => 'Admin Penjualan',
+            'email' => 'adminjual@gmail.com',
+            'password' => Hash::make('adminjual'),
+            'hak_akses' => 'Admin Penjualan',
+            'role_id' => 2
      ]);
      
     //  App\Model\User::create([
         DB::table('users')->insert([
-            'name' => 'Manajer',
-            'email' => 'manajer@gmail.com',
-            'password' => Hash::make('manajer'),
-            'hak_akses' => 'Manajer'
+            'name' => 'Pemilik',
+            'email' => 'pemilik@gmail.com',
+            'password' => Hash::make('pemilik'),
+            'hak_akses' => 'Pemilik',
+            'role_id' => 3
      ]);     
     }
 }

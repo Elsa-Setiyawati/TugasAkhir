@@ -17,7 +17,8 @@ class CreateBarangTable extends Migration
             $table->increments('barang_id');
             $table->string('barang_nama');
             $table->decimal('barang_hargabeli' , 15, 2);
-            $table->decimal('barang_hargajual' , 15, 2);
+            $table->decimal('barang_hargapokok' , 15, 2);
+            $table->decimal('barang_margin' , 15);
             $table->string('barang_stok');
             $table->unsignedInteger('barang_kategori_id');
             $table->foreign('barang_kategori_id')->references('kategori_id')->on('kategori')->onDelete('cascade');

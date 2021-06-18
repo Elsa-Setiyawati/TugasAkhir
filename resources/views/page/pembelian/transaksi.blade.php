@@ -7,16 +7,12 @@
             <div class="card-body">
                 <form action="/pembelian/save_transaksi" class="row" method="post">
                 @csrf
-                    <div class="form-group col-3">
+                    <div class="form-group col-4">
                         <input type="hidden" class="form-control" id="beli_id" name="beli_id" value="{{($data->id) ? $data->beli->beli_id : ''}}">
                         <label for="beli_tgl" class="control-label">Tanggal</label>
-                        <input type="date" class="form-control" required id="beli_tgl" name="beli_tgl" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tgl : ''}}">
+                        <input type="date" class="form-control" required id="beli_tgl" name="beli_tgl" readonly value="{{($data->id) ? $data->beli->beli_tgl : $data->date}}">
                     </div>
-                    <div class="form-group col-3">
-                        <label for="beli_no_nota" class="control-label">Faktur</label>
-                        <input type="text" class="form-control" required id="beli_no_nota" name="beli_no_nota" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_no_nota : ''}}">
-                    </div>
-                    <div class="form-group col-3">
+                    <div class="form-group col-4">
                         <label for="beli_pemasok_id" class="control-label">Pemasok</label>
                         <select
                                 id="beli_pemasok_id"
@@ -32,7 +28,7 @@
                                 @endforeach
                             </select>
                     </div>
-                    <div class="form-group col-3">
+                    <div class="form-group col-4">
                         <label for="beli_user_id" class="control-label">Pengguna</label>
                         <select
                                 id="beli_user_id"
@@ -191,7 +187,7 @@
                             <input type="hidden" class="form-control" id="dbeli_id" name="dbeli_id">
                             <label for="dbeli_barang_id" class="control-label">Barang</label>
                             <select
-                                required
+                            readonly required
                                 id="dbeli_barang_id"
                                 class="form-control select2"
                                 name="dbeli_barang_id"
@@ -240,7 +236,7 @@
                             <input type="hidden" class="form-control" id="rb_beli_id" name="rb_beli_id" >
                             <label for="rb_barang_id" class="control-label">Barang</label>
                             <select
-                                required
+                            readonly required
                                 id="rb_barang_id"
                                 class="form-control select2"
                                 name="rb_barang_id"

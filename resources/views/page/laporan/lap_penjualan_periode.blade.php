@@ -36,7 +36,7 @@
                         @php $jual_tot_jual = $jual_tot_jual + $tot; @endphp
                         <tr>
                             <td class="font-w600 text-center">{{($no)}}</td>
-                            <td class="font-w600 text-center">{{($list->jual_no_nota)}}</td>
+                            <td class="font-w600 text-center">JL-{{($list->jual_id)}}</td>
                             <td class="font-w600 text-center">@date($list->jual_tgl) </td>
                             <td class="font-w600 text-center">{{($list->name)}}</td>
                             <td class="font-w600 text-center">{{($list->pelanggan_nama)}}</td>

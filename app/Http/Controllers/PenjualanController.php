@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Helpers\Helper;
+use Carbon\Carbon;
 
 class PenjualanController extends Controller
 {
@@ -25,6 +27,7 @@ class PenjualanController extends Controller
     public function transaksi($id=null, $action=null)
     {
         $data = new \stdClass();
+        $data->date = Carbon::now()->format("Y-m-d");
         $data->detail_penjualan = DB::table('detail_penjualan')->join('barang', 'barang_id', 'djual_barang_id')->whereNull('djual_jual_id')->get();
         $data->pelanggan = DB::table('pelanggan')->get();
         $data->barang = DB::table('barang')->get();
@@ -70,7 +73,7 @@ class PenjualanController extends Controller
                 'kp_barang_id' => $detail->barang_id,
                 'kp_jenis' => 'keluar',
                 'kp_qty' =>  $detail->djual_jml,
-                'kp_harga' =>  $detail->djual_harga
+                'kp_harga' =>  $detail->djual_hargapokok
                 ]);
         }
         $save_barang_jual = DB::table('detail_penjualan')->whereNull('djual_jual_id')->update(['djual_jual_id' => $id]);
@@ -83,7 +86,7 @@ class PenjualanController extends Controller
     {
         // return $request->all();
         $id = DB::table('retur_penjualan')->insertGetId(
-            $request->except('_token', 'rj_id')
+            $request->except('_token', 'rj_id', 'rj_hargapokok')
         );
         $nominal_retur = 0;
         $retur_penjualan = DB::table('retur_penjualan')->join('barang', 'barang_id', 'rj_barang_id')->where('rj_jual_id', $request->rj_jual_id)->get();
@@ -94,8 +97,9 @@ class PenjualanController extends Controller
                 'kp_barang_id' => $returbarang->barang_id,
                 'kp_jenis' => 'masuk',
                 'kp_qty' =>  $returbarang->rj_jml,
-                'kp_harga' =>  $returbarang->rj_harga
+                'kp_harga' =>  $request->rj_hargapokok
                 ]);
+                Helper::harga_terbaru($returbarang->barang_id);
         foreach($retur_penjualan as $detail){
             $nominal_retur = $nominal_retur + ($detail->rj_jml*$detail->rj_harga);
         }

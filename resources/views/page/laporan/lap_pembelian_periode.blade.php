@@ -36,7 +36,7 @@
                         @php $beli_tot_beli = $beli_tot_beli + $tot; @endphp
                         <tr>
                             <td class="font-w600 text-center">{{($no)}}</td>
-                            <td class="font-w600 text-center">{{($list->beli_no_nota)}}</td>
+                            <td class="font-w600 text-center">BL-{{($list->beli_id)}}</td>
                             <td class="font-w600 text-center">@date($list->beli_tgl) </td>
                             <td class="font-w600 text-center">{{($list->name)}}</td>
                             <td class="font-w600 text-center">{{($list->pemasok_nama)}}</td>
@@ -50,7 +50,7 @@
                     </tbody>
                     <tfood>
                             <tr>
-                                <th colspan="7" class="text-right">Total</th>
+                                <th colspan="8" class="text-right">Total</th>
                                 <th colspan="2">@rp($beli_tot_beli)</th>
                             </tr>
                         </tfood>

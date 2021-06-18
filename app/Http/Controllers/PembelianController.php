@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PembelianController extends Controller
 {
@@ -26,6 +27,7 @@ class PembelianController extends Controller
     public function transaksi($id=null, $action=null)
     {
         $data = new \stdClass();
+        $data->date = Carbon::now()->format("Y-m-d");
         $data->detail_pembelian = DB::table('detail_pembelian')->join('barang', 'barang_id', 'dbeli_barang_id')->whereNull('dbeli_beli_id')->get();
         $data->pemasok = DB::table('pemasok')->get();
         $data->barang = DB::table('barang')->get();

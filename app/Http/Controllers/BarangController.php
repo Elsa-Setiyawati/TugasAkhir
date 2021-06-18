@@ -32,7 +32,7 @@ class BarangController extends Controller
                 'kp_barang_id' => $barang_id,
                 'kp_jenis' => 'Persediaan Awal',
                 'kp_qty' =>  $request->barang_stok,
-                'kp_harga' =>  $request->barang_hargajual
+                'kp_harga' =>  $request->barang_hargapokok
             ]);
             if ($save_kartu) {
                 return redirect(route('barang.index'));
