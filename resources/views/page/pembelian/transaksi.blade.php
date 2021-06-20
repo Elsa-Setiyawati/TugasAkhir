@@ -277,6 +277,10 @@
 
 @section('js_after')
 <script>
+  @if($data->id)
+    var retur_pembelian = @json($data->retur_pembelian, JSON_PRETTY_PRINT) ;
+    @endif
+
     var subtotal = '{{$subtotal}}';
     $("#beli_tot_beli").val(subtotal);
     $("#beli_bayar").val(subtotal-val);
@@ -287,27 +291,41 @@
     }
     function get_select(){
         let harga = $("#dbeli_barang_id option:selected").attr('harga');
+        let dbeli_hargapokok = $("#dbeli_barang_id option:selected").attr('dbeli_hargapokok');
         $("#dbeli_harga").val(harga);
+        $("#dbeli_hargapokok").val(dbeli_hargapokok);
     }
     
 
-    function set_form(title, dbeli_id, dbeli_barang_id, dbeli_jml, dbeli_harga) {
+    function set_form(title, dbeli_id, dbeli_barang_id, dbeli_jml, dbeli_harga, dbeli_hargapokok) {
         $('#titleModal').text(title);
         $('#dbeli_id').val(dbeli_id);
         $('#dbeli_barang_id').val(dbeli_barang_id);
         $('#dbeli_jml').val(dbeli_jml);
         $('#dbeli_harga').val(dbeli_harga);
+        $('#dbeli_hargapokok').val(dbeli_hargapokok);
     }
 
-    function set_form_retur(title, rb_id, rb_beli_id, rb_barang_id, rb_tgl, rb_jml, rb_harga) {
+    function set_form_retur(title, rb_id, rb_beli_id, rb_barang_id, rb_tgl, rb_jml, rb_harga, rb_hargapokok) {
+        let jml_retur = 0;
+        let stok_barang = 0;
+        retur_pembelian.forEach(retur_pembelian => {
+            if(retur_pembelian.barang_id==rb_barang_id){
+                stok_barang = retur_pembelian.barang_stok
+                jml_retur = jml_retur + parseFloat(retur_pembelian.rb_jml)
+            }
+        })
+        let sisa = parseFloat(rb_jml) - jml_retur;
+        let sisanya = (stok_barang<=sisa) ? stok_barang :sisa ;
         $('#titleModal_retur').text(title);
         $('#rb_id').val(rb_id);
         $('#rb_beli_id').val(rb_beli_id);
         $('#rb_barang_id').val(rb_barang_id);
         $('#rb_tgl').val(rb_tgl);
-        $('#rb_jml').val(rb_jml);
+        $('#rb_jml').val(sisanya);
         $('#rb_harga').val(rb_harga);
-        document.getElementById('rb_jml').max = rb_jml;
+        $('#rb_hargapokok').val(rb_hargapokok);
+        document.getElementById('rb_jml').max = sisanya;
     }
 
     function del_data(id) {

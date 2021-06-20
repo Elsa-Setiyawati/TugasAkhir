@@ -17,21 +17,24 @@
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <div class="navbar-header">
-                    <a class="navbar-brand" style="color:#fff"> <b> SIA - PERSEDIAAN</b> </a>
+             <a class="navbar-brand" style="color:#fff">
+                        <b> SIA - PERSEDIAAN</b>  </a> 
+                    
                 </div>
                 <div class="navbar-collapse">
                     <ul class="navbar-nav mr-auto mt-md-0">
                     <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
                         <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                     </ul>
+                    
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('assets/images/users/1.jpg') }}" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('assets/images/users/user.jpg') }}" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right scale-up">
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
-                                            <div class="u-img"><img src="{{ asset('assets/images/users/1.jpg') }}" alt="user"></div>
+                                            <div class="u-img"><img src="{{ asset('assets/images/users/user.jpg') }}" alt="user"></div>
                                             <div class="u-text">
                                                 <h4>{{Auth::user()->name}}</h4>
                                                 <p class="text-muted">{{Auth::user()->email}}</p><a class="btn btn-rounded btn-danger btn-sm">{{Auth::user()->hak_akses}}</a></div>
@@ -57,12 +60,12 @@
         </header>
         <aside class="left-sidebar">
             <div class="scroll-sidebar">
-                <div class="user-profile" style="background: url({{ asset('assets/images/background/user-info.jpg') }}) no-repeat;">
+                <div class="user-profile" style="background: url({{ asset('assets/images/background/profile-bg.jpg') }}) no-repeat;">
                     <div class="profile-img"> <img src="{{ asset('assets/images/users/profile.png') }}" alt="user" /> </div>
                     <div class="profile-text"> <a  aria-haspopup="true" aria-expanded="true">{{Auth::user()->name}}</a>
                 </div>
+                </div>
                 @include('layouts.partials.menu')
-            </div>
         </aside>
         <div class="page-wrapper">
             <div class="container-fluid">

@@ -278,6 +278,11 @@
 
 @section('js_after')
 <script>
+    @if($data->id)
+    var retur_penjualan = @json($data->retur_penjualan, JSON_PRETTY_PRINT) ;
+    @endif
+    
+
     var subtotal = '{{$subtotal}}';
     $("#jual_tot_jual").val(subtotal);
     $("#jual_bayar").val(subtotal-val);
@@ -304,15 +309,21 @@
     }
 
     function set_form_retur(title, rj_id, rj_jual_id, rj_barang_id, rj_tgl, rj_jml, rj_harga, rj_hargapokok) {
+        let jml_retur = 0
+        retur_penjualan.forEach(retur_penjualan => {
+            if(retur_penjualan.barang_id==rj_barang_id){
+                jml_retur = jml_retur + parseFloat(retur_penjualan.rj_jml)
+            }
+        })
         $('#titleModal_retur').text(title);
         $('#rj_id').val(rj_id);
         $('#rj_jual_id').val(rj_jual_id);
         $('#rj_barang_id').val(rj_barang_id);
         $('#rj_tgl').val(rj_tgl);
-        $('#rj_jml').val(rj_jml);
+        $('#rj_jml').val(parseFloat(rj_jml) - jml_retur);
         $('#rj_harga').val(rj_harga);
         $('#rj_hargapokok').val(rj_hargapokok);
-        document.getElementById('rj_jml').max = rj_jml;
+        document.getElementById('rj_jml').max = parseFloat(rj_jml) - jml_retur;
     }
 
     function del_data(id) {

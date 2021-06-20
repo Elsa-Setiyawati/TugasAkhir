@@ -14,7 +14,6 @@ class CreatePembelianTable extends Migration
     {
         Schema::create('pembelian', function (Blueprint $table) {
             $table->increments('beli_id');
-            $table->string('beli_no_nota');
             $table->date('beli_tgl')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('beli_user_id');
             $table->unsignedInteger('beli_pemasok_id');

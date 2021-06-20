@@ -15,16 +15,17 @@
 </head>
 
 <body>
-    <div class="preloader">
+<div class="preloader">
         <svg class="circular" viewBox="25 25 50 50">
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
     </div>
-    <section id="wrapper" class="login-register login-sidebar"  style="background-image:url(../assets/images/background/login-register.png);">
+   
+    <section id="wrapper" class="login-register login-sidebar"  style="background-image:url(../assets/images/background/login-register.jpg);">
             <div class="login-box card">
             <div class="card-body">
                 <form class="form-horizontal form-material" method="post" id="loginform" action="{{ route('login') }}">
                 @csrf
-                    <h3 class="box-title m-b-20">Sign In</h3>
+                    <h3 class="box-title m-b-20">Log In</h3>
                     <div class="form-group ">
                         <div class="col-xs-12">
                             <input id="email" name="email" class="form-control @error('email') is-invalid @enderror" type="email" value="{{ old('email') }}" required="" placeholder="Email"> 
@@ -87,6 +88,7 @@
       </form>
             </div>
           </div>
+        </div>
         </div>
     </section>
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
