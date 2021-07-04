@@ -19,15 +19,29 @@ class Helper
         $data->average = 0;
 
         foreach($databarang as $barang){
-            if($barang->kp_jenis == 'Persediaan Awal' || $barang->kp_jenis == 'masuk') {
-                $data->qty = $data->qty + $barang->kp_qty;
-                $data->total = $data->total + ($barang->kp_harga*$barang->kp_qty);
-                $data->average = $data->total/$data->qty;
-            }elseif ($barang->kp_jenis == 'keluar') {
-                $data->qty = $data->qty - $barang->kp_qty;
-                $data->total = $data->total - ($barang->kp_harga*$barang->kp_qty);
-                $data->average = $data->total/$data->qty;
-            }
+            $data->qty = $data->qty + $barang->kp_qty;
+            $data->total = $data->total + $barang->kp_total;
+            $data->average = ($data->qty==0) ? 0 : $data->total/$data->qty;
+            // $data->average = $data->total/$data->qty;
+
+            // if($barang->kp_jenis == 'Persediaan Awal' || $barang->kp_jenis == 'masuk') {
+            //     $data->qty = $data->qty + $barang->kp_qty;
+            //     $data->total = $data->total + ($barang->kp_harga*$barang->kp_qty);
+            //     if($data->qty==0){
+            //         $data->average = 0;
+            //     }else{
+            //         $data->average = $data->total/$data->qty;
+            //     }
+                
+            // }elseif ($barang->kp_jenis == 'keluar') {
+            //     $data->qty = $data->qty - $barang->kp_qty;
+            //     $data->total = $data->total - ($barang->kp_harga*$barang->kp_qty);
+            //     if($data->qty==0){
+            //         $data->average = 0;
+            //     }else{
+            //         $data->average = $data->total/$data->qty;
+            //     }
+            // }
         }
         $save_barang = DB::table('barang')->where('barang_id', $barang_id)->update(['barang_hargapokok' => $data->average]);
         return $data;
@@ -41,15 +55,27 @@ class Helper
         $data->average = 0;
 
         foreach($databarang as $barang){
-            if($barang->kp_jenis == 'Persediaan Awal' || $barang->kp_jenis == 'masuk') {
-                $data->qty = $data->qty + $barang->kp_qty;
-                $data->total = $data->total + ($barang->kp_harga*$barang->kp_qty);
-                $data->average = $data->total/$data->qty;
-            }elseif ($barang->kp_jenis == 'keluar') {
-                $data->qty = $data->qty - $barang->kp_qty;
-                $data->total = $data->total - ($barang->kp_harga*$barang->kp_qty);
-                $data->average = $data->total/$data->qty;
-            }
+            $data->qty = $data->qty + $barang->kp_qty;
+            $data->total = $data->total + $barang->kp_total;
+            $data->average = ($data->qty==0) ? 0 : $data->total/$data->qty;
+            // $data->average = $data->total/$data->qty;
+            // if($barang->kp_jenis == 'Persediaan Awal' || $barang->kp_jenis == 'masuk') {
+            //     $data->qty = $data->qty + $barang->kp_qty;
+            //     $data->total = $data->total + ($barang->kp_harga*$barang->kp_qty);
+            //     if($data->qty==0){
+            //         $data->average = 0;
+            //     }else{
+            //         $data->average = $data->total/$data->qty;
+            //     }
+            // }elseif ($barang->kp_jenis == 'keluar') {
+            //     $data->qty = $data->qty - $barang->kp_qty;
+            //     $data->total = $data->total - ($barang->kp_harga*$barang->kp_qty);
+            //     if($data->qty==0){
+            //         $data->average = 0;
+            //     }else{
+            //         $data->average = $data->total/$data->qty;
+            //     }
+            // }
         }
         return $data;
 

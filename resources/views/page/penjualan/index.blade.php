@@ -34,7 +34,9 @@
                                 <td>@rp($list->jual_tot_retur_jual)</td>
                                 <td>
                                     <a class="btn btn-info text-white" href="/penjualan/transaksi/{{$list->jual_id}}/detail">Detail</a>
+                                    @if($list->jual_tot_retur_jual==0)
                                     <a class="btn btn-warning text-white" href="/penjualan/transaksi/{{$list->jual_id}}/retur">Retur</a>
+                                    @endif
 
                                 </td>
                             </tr>

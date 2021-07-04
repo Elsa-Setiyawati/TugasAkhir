@@ -16,7 +16,7 @@
             <li> <a class="waves-effect waves-dark" href="/pemasok" aria-expanded="false">
             <!-- <i class="mdi  mdi-folder-account"></i> -->
             <span class="hide-menu">Pemasok </span></a> </li>
-            <li> <a class="waves-effect waves-dark" href="/pelanggan" aria-expanded="false">
+            <li> <a class="waves-effect waves-dark" href="/users" aria-expanded="false">
             <!-- <i class="mdi mdi-account-card-details"></i> -->
             <span class="hide-menu">User </span></a> </li>
             </ul>
@@ -49,12 +49,13 @@
                     <li> <a class="waves-effect waves-dark" href="/barang" aria-expanded="false">
                     <!-- <i class="mdi mdi-library-books"></i> -->
                     <span class="hide-menu">Barang </span></a> </li>
-                    <li> <a class="waves-effect waves-dark" href="/pemasok" aria-expanded="false">
+                    <li> <a class="waves-effect waves-dark" href="/pelanggan" aria-expanded="false">
                     <!-- <i class="mdi  mdi-folder-account"></i> -->
                     <span class="hide-menu">Pelanggan </span></a> </li>
                     <li> <a class="waves-effect waves-dark" href="/users" aria-expanded="false">
                     <!-- <i class="mdi mdi-account-circle"></i> -->
                     <span class="hide-menu">User </span></a> </li>
+                    
                 </ul>
                     <b><li class="nav-small-cap">TRANSAKSI</li></b>
                     <li> <a class="waves-effect waves-dark" href="/penjualan" aria-expanded="false">
@@ -114,6 +115,13 @@
                     <li><a href="/lap_kartu_gudang">Kartu Gudang </a></li>
                     <li><a href="/lap_kartu_persediaan">Kartu Persediaan</a></li>
                     </ul>
+                    @elseif (auth::user()->role_id == '')
+                    <b> <li class="nav-small-cap">MASTER</li></b>
+                    <li> <a class="has-arrow waves-effect waves-dark" href="/home" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">MASTER</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                    <li> <a class="waves-effect waves-dark" href="/users" aria-expanded="false">
+                <!-- <i class="mdi mdi-account-circle"></i> -->
+                <span class="hide-menu">User </span></a> </li>
                 @endif
         </li>
     </ul>

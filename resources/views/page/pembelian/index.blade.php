@@ -34,8 +34,9 @@
                                 <td>@rp($list->beli_tot_retur_beli)</td>
                                 <td>
                                     <a class="btn btn-info text-white" href="/pembelian/transaksi/{{$list->beli_id}}/detail">Detail</a>
+                                    @if($list->beli_tot_retur_beli==0)
                                     <a class="btn btn-warning text-white" href="/pembelian/transaksi/{{$list->beli_id}}/retur">Retur</a>
-
+                                    @endif
                                 </td>
                             </tr>
                             @php $no++; @endphp

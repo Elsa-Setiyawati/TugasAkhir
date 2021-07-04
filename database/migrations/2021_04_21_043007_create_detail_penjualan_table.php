@@ -18,7 +18,7 @@ class CreateDetailPenjualanTable extends Migration
             $table->foreign('djual_jual_id')->references('jual_id')->on('penjualan')->onDelete('cascade');
             $table->unsignedInteger('djual_barang_id');
             $table->foreign('djual_barang_id')->references('barang_id')->on('barang')->onDelete('cascade');
-            $table->string('djual_jml');
+            $table->string('djual_jml', 50);
             $table->decimal('djual_harga', 15, 2);
             $table->decimal('djual_hargapokok', 15, 2);
             $table->timestamp('created_at')->useCurrent();

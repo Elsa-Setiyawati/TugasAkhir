@@ -11,7 +11,7 @@
             <btn class="btn btn-secondary btn-sm" onclick="printDiv('print')">Print</btn>
         </div>
         <div id="print" class="block-content">
-            <div class="font-w600 text-uppercase text-center"><b>Laporan Pembelian Per Periode</b></div>
+            <div class="font-w600 text-uppercase text-center"><b>Laporan Pembelian Barang Per Periode</b></div>
             <div class="font-w600 text-uppercase text-center"><b> TOKO BINTANG ELEKTRONIK</b></div>
             <div class="font-w600 text-uppercase text-center">periode @date($data->startdate) s.d @date($data->enddate)</div><br />
             <div class="table-responsive">
@@ -24,16 +24,17 @@
                             <th class="text-center">User</th>
                             <th class="text-center">Pemasok</th>
                             <th class="text-center">Nama Barang</th>
-                            <th class="text-center">Qty</th>
                             <th class="text-center">Harga</th>
+                            <th class="text-center">Qty</th>
                             <th class="text-center" >Total</a></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php $no=1;  $beli_tot_beli=0; @endphp
+                        @php $no=1;  $beli_tot_beli=0; $dbeli_jml=0; @endphp
                         @foreach($data->list as $list)
                         @php $tot = $list->dbeli_jml*$list->dbeli_harga; @endphp
                         @php $beli_tot_beli = $beli_tot_beli + $tot; @endphp
+                        @php $dbeli_jml==$list->dbeli_jml @endphp
                         <tr>
                             <td class="font-w600 text-center">{{($no)}}</td>
                             <td class="font-w600 text-center">BL-{{($list->beli_id)}}</td>
@@ -41,17 +42,18 @@
                             <td class="font-w600 text-center">{{($list->name)}}</td>
                             <td class="font-w600 text-center">{{($list->pemasok_nama)}}</td>
                             <td class="font-w600 text-center">{{($list->barang_nama)}}</td>
-                            <td class="font-w600 text-center">{{($list->dbeli_jml)}}</td>
                             <td class="font-w600 text-center">@rp($list->dbeli_harga)</td>
+                            <td class="font-w600 text-center">{{($list->dbeli_jml)}}</td>
                             <td class="text-right">@rp($tot)</td>
                         </tr>
-                        @php  $no=$no+1; @endphp 
+                        @php  $no=$no+1; $dbeli_jml=$dbeli_jml+$list->dbeli_jml @endphp 
                         @endforeach
                     </tbody>
                     <tfood>
                             <tr>
-                                <th colspan="8" class="text-right">Total</th>
-                                <th colspan="2">@rp($beli_tot_beli)</th>
+                                <th colspan="7" class="text-right">Total</th>
+                                <th colspan="1">{{($dbeli_jml)}}</th>
+                                <th colspan="1">@rp($beli_tot_beli)</th>
                             </tr>
                         </tfood>
                 </table>

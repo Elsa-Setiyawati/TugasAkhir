@@ -61,6 +61,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Hak Akses') }}</label>
+                            <div class="col-md-6">
+                            <select name="role_id" class="form-control @error('role_id') is-invalid @enderror" id="role_id" required/>
+                                <option value="">--Pilih Hak Akses--</option>
+                                <option value="1">Admin Gudang</option>
+                                <option value="2">Admin Penjualan</option>
+                                <option value="3">Pemilik</option>
+                                </select>
+                            </div>
+                                @error('role_id')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror
+                            </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

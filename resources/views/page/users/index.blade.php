@@ -69,9 +69,9 @@
                             <label for="hak_akses" class="form-label">Hak Akses</label>
                             <select name="hak_akses" class="form-control" class="form-control" id="hak_akses" aria-describedby="nama" required/>
                                 <option value="">--Pilih Hak Akses--</option>
-                                <option value="Manajer">Manajer</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Kasir">Kasir</option>
+                                <option value="Pemilik">Pemilik</option>
+                                <option value="Admin Gudang">Admin Gudang</option>
+                                <option value="Admin Penjualan">Admin Penjualan</option>
                                 </select>
                             </div>
                           

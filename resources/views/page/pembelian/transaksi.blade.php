@@ -10,7 +10,7 @@
                     <div class="form-group col-4">
                         <input type="hidden" class="form-control" id="beli_id" name="beli_id" value="{{($data->id) ? $data->beli->beli_id : ''}}">
                         <label for="beli_tgl" class="control-label">Tanggal</label>
-                        <input type="date" class="form-control" required id="beli_tgl" name="beli_tgl" readonly value="{{($data->id) ? $data->beli->beli_tgl : $data->date}}">
+                        <input type="date" class="form-control" id="beli_tgl" name="beli_tgl" value="{{($data->id) ? $data->beli->beli_tgl : $data->date}}">
                     </div>
                     <div class="form-group col-4">
                         <label for="beli_pemasok_id" class="control-label">Pemasok</label>
@@ -102,10 +102,10 @@
                                 @if($data->action!='detail')
                                 <td>
                                 @if( $data->id==null) 
-                                <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$detail->dbeli_id}}', '{{$detail->dbeli_barang_id}}', '{{$detail->dbeli_jml}}', '{{$detail->dbeli_harga}}' )" data-whatever="@mdo">Edit</a>
+                                <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$detail->dbeli_id}}', '{{$detail->dbeli_barang_id}}', '{{$detail->dbeli_jml}}', '{{$detail->dbeli_harga}}',)" data-whatever="@mdo">Edit</a>
                                     <a class="btn btn-danger text-white" onclick="del_data('{{$detail->dbeli_id}}')">Hapus</a>
                                     @elseif($data->action=='retur')
-                                    <a class="btn btn-warning text-white" data-toggle="modal" data-target="#exampleModal1" onclick="set_form_retur('Retur Barang', '', '{{$detail->dbeli_beli_id}}', '{{$detail->dbeli_barang_id}}', '', '{{$detail->dbeli_jml}}', '{{$detail->dbeli_harga}}' )" data-whatever="@mdo">Retur</a>
+                                    <a class="btn btn-warning text-white" data-toggle="modal" data-target="#exampleModal1" onclick="set_form_retur('Retur Barang', '{{$detail->dbeli_beli_id}}', '{{$detail->dbeli_barang_id}}', '{{$detail->dbeli_jml}}', '{{$detail->dbeli_harga}}', '{{$detail->barang_stok}}' )" data-whatever="@mdo">Retur</a>
                                     @endif
                                 </td>
                                 @endif
@@ -185,6 +185,7 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="dbeli_id" name="dbeli_id">
+                            <!-- <input type="hidden" class="form-control" id="dbeli_hargapokok" name="dbeli_hargapokok"> -->
                             <label for="dbeli_barang_id" class="control-label">Barang</label>
                             <select
                             readonly required
@@ -235,15 +236,17 @@
                             <input type="hidden" class="form-control" id="rb_id" name="rb_id">
                             <input type="hidden" class="form-control" id="rb_beli_id" name="rb_beli_id" >
                             <label for="rb_barang_id" class="control-label">Barang</label>
+                            <input type="hidden" class="form-control" id="rb_barang_id" name="rb_barang_id">
                             <select
                             readonly required
-                                id="rb_barang_id"
-                                class="form-control select2"
-                                name="rb_barang_id"
-                                data-placeholder="Pilih Barang" data-allow-clear="true"
+                                type="hidden"
+                                id="rb_barang_id_kw" 
+                                class="form-control js-select2-disable"
+                                data-allow-clear="true"
                                 onchange="get_select()"
+                                style="width: 100%"
                             >
-                            <option value="">==Pilih Data==</option>
+                            <!-- <option value="">==Pilih Data==</option> -->
                                 @foreach(@$data->barang as $barang)
                                     <option harga="{{ $barang->barang_hargabeli }}" readonly value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
                                 @endforeach
@@ -255,7 +258,7 @@
                         </div>
                         <div class="form-group">
                             <label for="rb_jml" class="control-label">Jumlah</label>
-                            <input type="number" class="form-control" min="0" required id="rb_jml" name="rb_jml">
+                            <input type="number" class="form-control" min="1" required id="rb_jml" name="rb_jml">
                         </div>
                         <div class="form-group">
                             <label for="rb_harga" class="control-label">Harga</label>
@@ -283,8 +286,8 @@
 
     var subtotal = '{{$subtotal}}';
     $("#beli_tot_beli").val(subtotal);
-    $("#beli_bayar").val(subtotal-val);
-    $("#beli_diskon_beli").val(val);
+    $("#beli_bayar").val(subtotal-0);
+    $("#beli_diskon_beli").val(0);
     function potongan(val){
         hasil = parseFloat(subtotal)-parseFloat(val);
         $("#beli_bayar").val(hasil);
@@ -297,18 +300,17 @@
     }
     
 
-    function set_form(title, dbeli_id, dbeli_barang_id, dbeli_jml, dbeli_harga, dbeli_hargapokok) {
+    function set_form(title, dbeli_id, dbeli_barang_id, dbeli_jml, dbeli_harga) {
         $('#titleModal').text(title);
         $('#dbeli_id').val(dbeli_id);
         $('#dbeli_barang_id').val(dbeli_barang_id);
         $('#dbeli_jml').val(dbeli_jml);
         $('#dbeli_harga').val(dbeli_harga);
-        $('#dbeli_hargapokok').val(dbeli_hargapokok);
+        // $('#dbeli_hargapokok').val(dbeli_hargapokok);
     }
 
-    function set_form_retur(title, rb_id, rb_beli_id, rb_barang_id, rb_tgl, rb_jml, rb_harga, rb_hargapokok) {
+    function set_form_retur(title, rb_beli_id, rb_barang_id, rb_jml, rb_harga, stok_barang ) {
         let jml_retur = 0;
-        let stok_barang = 0;
         retur_pembelian.forEach(retur_pembelian => {
             if(retur_pembelian.barang_id==rb_barang_id){
                 stok_barang = retur_pembelian.barang_stok
@@ -317,14 +319,22 @@
         })
         let sisa = parseFloat(rb_jml) - jml_retur;
         let sisanya = (stok_barang<=sisa) ? stok_barang :sisa ;
+        // console.log('sias',sisa);
+        // console.log('stok_barang',stok_barang);
+        // console.log('goblok',(stok_barang<=sisa) ? stok_barang :sisa);
+        // if(stok_barang==0){
+        //     sisa=0
+        //     }
         $('#titleModal_retur').text(title);
-        $('#rb_id').val(rb_id);
+        // $('#rb_id').val(rb_id);
         $('#rb_beli_id').val(rb_beli_id);
         $('#rb_barang_id').val(rb_barang_id);
-        $('#rb_tgl').val(rb_tgl);
+        $("#rb_barang_id_kw").select2("val", rb_barang_id);
+        // $('#rb_barang_id').val(rb_barang_id);
+        // $('#rb_tgl').val(rb_tgl);
         $('#rb_jml').val(sisanya);
         $('#rb_harga').val(rb_harga);
-        $('#rb_hargapokok').val(rb_hargapokok);
+        // $('#rb_hargapokok').val(rb_hargapokok);
         document.getElementById('rb_jml').max = sisanya;
     }
 

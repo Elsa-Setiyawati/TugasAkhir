@@ -18,36 +18,38 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center">No Retur Beli</th>
+                            <th class="text-center">No</th>
                             <th class="text-center">No Faktur Beli</th>
                             <th class="text-center">Tanggal</th>
                             <th class="text-center">Nama Barang</th>
-                            <th class="text-center">Qty</th>
                             <th class="text-center">Harga</th>
+                            <th class="text-center">Qty</th>
                             <th class="text-center">Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php $no=1; $tot_retur=0;  @endphp
+                        @php $no=1; $tot_retur=0; $rb_jml=0; @endphp
                         @foreach($data->list as $list)
                         @php $tot = $list->rb_jml*$list->rb_harga; @endphp
                         @php $tot_retur = $tot_retur + $tot; @endphp
+                        @php $rb_jml==$list->rb_jml @endphp
                         <tr>
                             <td class="font-w600 text-center">{{($list->rb_id)}}</td>
-                            <td class="font-w600 text-center">{{($list->beli_no_nota)}}</td>
+                            <td class="font-w600 text-center">BL-{{($list->beli_id)}}</td>
                             <td class="font-w600 text-center">@date($list->rb_tgl) </td>
                             <td class="font-w600 text-center">{{($list->barang_nama)}}</td>
-                            <td class="font-w600 text-center">{{($list->rb_jml)}}</td>
                             <td class="font-w600 text-center">@rp($list->rb_harga)</td>
+                            <td class="font-w600 text-center">{{($list->rb_jml)}}</td>
                             <td class="text-right">@rp($tot)</td>
                         </tr>
-                        @php $no=1+1; @endphp 
+                        @php $no=1+1;  $rb_jml=$rb_jml+$list->rb_jml @endphp 
                         @endforeach
                     </tbody>
                     <tfood>
                             <tr>
-                                <th colspan="6" class="text-right">Total</th>
-                                <th colspan="2">@rp($tot_retur)</th>
+                                <th colspan="5" class="text-right">Total</th>
+                                <th colspan="1">@rp($rb_jml)</th>
+                                <th colspan="1">@rp($tot_retur)</th>
                             </tr>
                         </tfood>
                 </table>

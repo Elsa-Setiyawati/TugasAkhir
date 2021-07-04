@@ -71,9 +71,11 @@ class PenjualanController extends Controller
             $save_kartu = DB::table('kartupersediaan')->insert([
                 'kp_tgl' => $request->jual_tgl,
                 'kp_barang_id' => $detail->barang_id,
-                'kp_jenis' => 'keluar',
-                'kp_qty' =>  $detail->djual_jml,
-                'kp_harga' =>  $detail->djual_hargapokok
+                'kp_jenis' => 'Penjualan',
+                'kp_ket' => 'Penjualan',
+                'kp_qty' =>  -($detail->djual_jml),
+                'kp_harga' =>  $detail->djual_hargapokok,
+                'kp_total' =>  -($detail->djual_jml*$detail->djual_hargapokok)
                 ]);
         }
         $save_barang_jual = DB::table('detail_penjualan')->whereNull('djual_jual_id')->update(['djual_jual_id' => $id]);
@@ -95,9 +97,11 @@ class PenjualanController extends Controller
             $save_kartu = DB::table('kartupersediaan')->insert([
                 'kp_tgl' => $request->rj_tgl,
                 'kp_barang_id' => $returbarang->barang_id,
-                'kp_jenis' => 'masuk',
+                'kp_jenis' => 'Penjualan',
+                'kp_ket' => 'Retur Penjualan',
                 'kp_qty' =>  $returbarang->rj_jml,
-                'kp_harga' =>  $request->rj_hargapokok
+                'kp_harga' =>  $request->rj_hargapokok,
+                'kp_total' =>  $returbarang->rj_jml*$request->rj_hargapokok
                 ]);
                 Helper::harga_terbaru($returbarang->barang_id);
         foreach($retur_penjualan as $detail){
@@ -105,7 +109,7 @@ class PenjualanController extends Controller
         }
         $save_barang_jual = DB::table('penjualan')->where('jual_id', $request->rj_jual_id)->update(['jual_tot_retur_jual' => $nominal_retur]);
         if ($id) {
-            return redirect(route('penjualan.index'));
+            return redirect('/penjualan/transaksi/'.$request->rj_jual_id.'/retur');
         }
         return redirect()->back();
     }

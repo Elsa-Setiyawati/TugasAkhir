@@ -14,9 +14,9 @@ class CreatePemasokTable extends Migration
     {
         Schema::create('pemasok', function (Blueprint $table) {
             $table->increments('pemasok_id');
-            $table->string('pemasok_nama');
-            $table->string('pemasok_alamat');
-            $table->string('pemasok_notelp');
+            $table->string('pemasok_nama', 50);
+            $table->string('pemasok_alamat', 50);
+            $table->string('pemasok_notelp', 20);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))->nullable();
         });

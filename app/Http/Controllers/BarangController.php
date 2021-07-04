@@ -31,8 +31,10 @@ class BarangController extends Controller
                 'kp_tgl'=>Carbon::now(),
                 'kp_barang_id' => $barang_id,
                 'kp_jenis' => 'Persediaan Awal',
+                'kp_ket' => 'Persediaan Awal',
                 'kp_qty' =>  $request->barang_stok,
-                'kp_harga' =>  $request->barang_hargapokok
+                'kp_harga' =>  $request->barang_hargapokok,
+                'kp_total' =>  $request->barang_stok*$request->barang_hargapokok
             ]);
             if ($save_kartu) {
                 return redirect(route('barang.index'));

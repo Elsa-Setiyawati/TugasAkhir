@@ -27,12 +27,12 @@
                                 <td>{{$no}}</td>
                                 <td>{{$list->barang_nama}}</td>
                                 <td>{{$list->kategori_nama}}</td>
-                                <td>{{$list->barang_margin}}</td>
+                                <td>{{$list->barang_profit}}</td>
                                 <td>{{$list->barang_stok}}</td>
                                 <td>@rp($list->barang_hargabeli)</td>
                                 <td>@rp($list->barang_hargapokok)</td>   
                                 <td>
-                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->barang_id}}', '{{$list->barang_nama}}', '{{$list->barang_margin}}', '{{$list->barang_stok}}', '{{$list->barang_hargabeli}}', '{{$list->barang_hargapokok}}', '{{$list->barang_kategori_id}}',)" data-whatever="@mdo">Edit</a>
+                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->barang_id}}', '{{$list->barang_nama}}', '{{$list->barang_profit}}', '{{$list->barang_stok}}', '{{$list->barang_hargabeli}}', '{{$list->barang_hargapokok}}', '{{$list->barang_kategori_id}}',)" data-whatever="@mdo">Edit</a>
                                     <a class="btn btn-danger text-white" onclick="del_data('{{$list->barang_id}}')">Hapus</a>
 
                                 </td>
@@ -64,8 +64,8 @@
                             <input type="text" class="form-control" required id="barang_nama" name="barang_nama">
                         </div>
                         <div class="form-group">
-                            <label for="barang_margin" class="control-label">Persentase Laba (%)</label>
-                            <input type="number" min="0" class="form-control" required id="barang_margin" name="barang_margin">
+                            <label for="barang_profit" class="control-label">Persentase Laba (%)</label>
+                            <input type="number" min="0" class="form-control" required id="barang_profit" name="barang_profit">
                         </div>
                         <div class="form-group">
                             <label for="barang_stok" class="control-label">Stok</label>
@@ -111,11 +111,11 @@
 
 @section('js_after')
 <script>
-    function set_form(title, barang_id, barang_nama, barang_margin, barang_stok, barang_hargabeli, barang_hargapokok,barang_kategori_id) {
+    function set_form(title, barang_id, barang_nama, barang_profit, barang_stok, barang_hargabeli, barang_hargapokok,barang_kategori_id) {
         $('#titleModal').text(title);
         $('#barang_id').val(barang_id);
         $('#barang_nama').val(barang_nama); 
-        $('#barang_margin').val(barang_margin); 
+        $('#barang_profit').val(barang_profit); 
         $('#barang_stok').val(barang_stok);
         $('#barang_hargabeli').val(barang_hargabeli);
         $('#barang_hargapokok').val(barang_hargapokok);

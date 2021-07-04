@@ -11,7 +11,7 @@
             <btn class="btn btn-secondary btn-sm" onclick="printDiv('print')">Print</btn>
         </div>
         <div id="print" class="block-content">
-            <div class="font-w600 text-uppercase text-center"><b>Laporan Penjualan Per Periode</b></div>
+            <div class="font-w600 text-uppercase text-center"><b>Laporan Penjualan Barang Per Periode</b></div>
             <div class="font-w600 text-uppercase text-center"><b> TOKO BINTANG ELEKTRONIK</b></div>
             <div class="font-w600 text-uppercase text-center">periode @date($data->startdate) s.d @date($data->enddate)</div><br />
             <div class="table-responsive">
@@ -24,16 +24,17 @@
                             <th class="text-center">User</th>
                             <th class="text-center">Pelanggan</th>
                             <th class="text-center">Nama Barang</th>
-                            <th class="text-center">Qty</th>
                             <th class="text-center">Harga</th>
+                            <th class="text-center">Qty</th>
                             <th class="text-center" >Total</a></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php $no=1; $jual_tot_jual=0; @endphp
+                        @php $no=1; $jual_tot_jual=0; $djual_jml=0; @endphp
                         @foreach($data->list as $list)
                         @php $tot = $list->djual_jml*$list->djual_harga; @endphp
                         @php $jual_tot_jual = $jual_tot_jual + $tot; @endphp
+                        @php $djual_jml==$list->djual_jml @endphp
                         <tr>
                             <td class="font-w600 text-center">{{($no)}}</td>
                             <td class="font-w600 text-center">JL-{{($list->jual_id)}}</td>
@@ -41,17 +42,18 @@
                             <td class="font-w600 text-center">{{($list->name)}}</td>
                             <td class="font-w600 text-center">{{($list->pelanggan_nama)}}</td>
                             <td class="font-w600 text-center">{{($list->barang_nama)}}</td>
-                            <td class="font-w600 text-center">{{($list->djual_jml)}}</td>
                             <td class="font-w600 text-center">@rp($list->djual_harga)</td>
+                            <td class="font-w600 text-center">{{($list->djual_jml)}}</td>
                             <td class="text-right">@rp($tot)</td>
                         </tr>
-                        @php $no=$no+1; @endphp 
+                        @php $no=$no+1;  $djual_jml=$djual_jml+$list->djual_jml @endphp 
                         @endforeach
                     </tbody>
                     <tfood>
                             <tr>
                                 <th colspan="7" class="text-right">Total</th>
-                                <th colspan="2">@rp($jual_tot_jual)</th>
+                                <th colspan="1">{{($djual_jml)}}</th>
+                                <th colspan="1">@rp($jual_tot_jual)</th>
                             </tr>
                         </tfood>
                 </table>

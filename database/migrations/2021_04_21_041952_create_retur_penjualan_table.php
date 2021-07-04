@@ -19,7 +19,7 @@ class CreateReturPenjualanTable extends Migration
             $table->unsignedInteger('rj_barang_id');
             $table->foreign('rj_barang_id')->references('barang_id')->on('barang')->onDelete('cascade');
             $table->date('rj_tgl');
-            $table->string('rj_jml');
+            $table->string('rj_jml', 50);
             $table->decimal('rj_harga', 15, 2);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))->nullable();

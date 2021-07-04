@@ -12,15 +12,18 @@ class RolesTableSeeder extends Seeder
     {
         // App\Role::create([
             DB::table('roles')->insert([
-            'name' => 'Admin Gudang'
+            'name' => 'Admin Gudang',
+            // 'hak_akses' => 'Admin Gudang'
             ]);
         // App\Role::create([
             DB::table('roles')->insert([
-            'name' => 'Admin Penjualan'
+            'name' => 'Admin Penjualan',
+            // 'hak_akses' => 'Admin Penjualan'
             ]);
         // App\Role::create([
             DB::table('roles')->insert([
-            'name' => 'Pemilik'
+            'name' => 'Pemilik', 
+            // 'hak_akses' => 'Pemilik'
             ]);
     }
 }

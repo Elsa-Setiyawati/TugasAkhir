@@ -15,11 +15,11 @@ class CreateBarangTable extends Migration
     {
         Schema::create('barang', function (Blueprint $table) {
             $table->increments('barang_id');
-            $table->string('barang_nama');
+            $table->string('barang_nama', 50);
             $table->decimal('barang_hargabeli' , 15, 2);
             $table->decimal('barang_hargapokok' , 15, 2);
-            $table->decimal('barang_margin' , 15);
-            $table->string('barang_stok');
+            $table->decimal('barang_profit' , 15);
+            $table->string('barang_stok', 50);
             $table->unsignedInteger('barang_kategori_id');
             $table->foreign('barang_kategori_id')->references('kategori_id')->on('kategori')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();

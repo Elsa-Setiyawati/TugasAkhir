@@ -21,8 +21,8 @@
                         <tr>
                             <th class="text-center">No</th>
                             <th class="text-center">Tanggal</th>
-                            <th class="text-center">Pembelian</th>
-                            <th class="text-center">Penjualan</th>
+                            <th class="text-center">Masuk</th>
+                            <th class="text-center">Keluar</th>
                             <th class="text-center">Sisa</th>
                         </tr>
                     </thead>
@@ -39,19 +39,15 @@
                         @php $no=1+1; $sisa = $data->persediaan_awal;  @endphp
                         @endif
                         @foreach($data->list as $list)
-                        @if($list->kp_jenis == 'Persediaan Awal' || $list->kp_jenis == 'masuk')
                         @php $sisa = $sisa + $list->kp_qty; @endphp
-                        @elseif($list->kp_jenis == 'keluar')
-                        @php $sisa = $sisa - $list->kp_qty; @endphp
-                        @endif
                         <tr>
                             <td class="font-w600 text-center">{{($no)}}</td>
                             <td class="font-w600 text-center">@date($list->kp_tgl) </td>
                             <td class="font-w600 text-center">
-                            @if($list->kp_jenis == 'masuk'){{($list->kp_qty)}}@endif
+                            @if($list->kp_jenis == 'Pembelian'){{+($list->kp_qty)}}  @endif
                             </td>
                             <td class="font-w600 text-center">
-                            @if($list->kp_jenis == 'keluar'){{($list->kp_qty)}}@endif
+                            @if($list->kp_jenis == 'Penjualan'){{-($list->kp_qty)}}  @endif
                             </td>
                             <td class="font-w600 text-center">{{($sisa)}}</td>
                         </tr>

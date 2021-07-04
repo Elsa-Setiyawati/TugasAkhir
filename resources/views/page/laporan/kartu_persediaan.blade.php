@@ -64,33 +64,37 @@
                         @php 
                         $sisa_qty = $sisa_qty + $list->kp_qty;  
                         $sisa_harga =$list->kp_harga;  
-                        $sisa_saldo = $sisa_qty * $sisa_harga; 
+                        $sisa_saldo = $list->kp_total; 
                         @endphp
-                        @elseif($list->kp_jenis == 'masuk')
+                        @else
                         @php 
                         $sisa_qty = $sisa_qty + $list->kp_qty;  
-                        $sisa_saldo = $sisa_saldo + ($list->kp_qty*$list->kp_harga); 
-                        $sisa_harga =$sisa_saldo/$sisa_qty;  
+                        $sisa_saldo = $sisa_saldo + $list->kp_total;
+                        if($sisa_qty==0){
+                            $sisa_harga =0; 
+                        }else{
+                            $sisa_harga =$sisa_saldo/$sisa_qty; 
+                        }
+                         
                         @endphp
-                        @elseif($list->kp_jenis == 'keluar')
-                        @php 
-                        $sisa_qty = $sisa_qty - $list->kp_qty;  
-                        $sisa_saldo = $sisa_saldo - ($list->kp_qty*$list->kp_harga); 
-                        $sisa_harga =$sisa_saldo/$sisa_qty;  
-                          @endphp
                         @endif
+                        
                         <tr>
                             <td class="font-w600 text-center" >{{($no)}}</td>
                             <td class="font-w600 text-center" >@date($list->kp_tgl) </td>
-                            <td class="font-w600 text-center">@if($list->kp_jenis == 'masuk'){{($list->kp_qty)}}@endif</td>
-                            <td class="font-w600 text-center">@if($list->kp_jenis == 'masuk')@rp($list->kp_harga)@endif</td>
-                            <td class="font-w600 text-center">@if($list->kp_jenis == 'masuk')@rp($list->kp_qty*$list->kp_harga)@endif
+                            <td class="font-w600 text-center">@if($list->kp_jenis == 'Pembelian'){{($list->kp_qty)}}@endif</td>
+                            <td class="font-w600 text-center">@if($list->kp_jenis == 'Pembelian')@rp($list->kp_harga)@endif</td>
+                            <td class="font-w600 text-center">@if($list->kp_jenis == 'Pembelian')@rp($list->kp_total)@endif
                             </td>
                             <td class="font-w600 text-center">
-                            @if($list->kp_jenis == 'keluar'){{($list->kp_qty)}}@endif
+                            @if($list->kp_ket == 'Penjualan'){{-($list->kp_qty)}}@endif
+                            @if($list->kp_ket == 'Retur Penjualan'){{-($list->kp_qty)}}@endif
                             </td>
-                            <td class="font-w600 text-center">@if($list->kp_jenis == 'keluar')@rp($list->kp_harga)@endif</td>
-                            <td class="font-w600 text-center">@if($list->kp_jenis == 'keluar')@rp($list->kp_qty*$list->kp_harga)@endif</td>
+                            <td class="font-w600 text-center">@if($list->kp_jenis == 'Penjualan')@rp($list->kp_harga)@endif</td>
+                            <td class="font-w600 text-center">
+                            @if($list->kp_ket == 'Penjualan')@rp(-($list->kp_total))@endif
+                            @if($list->kp_ket == 'Retur Penjualan')@rp(-($list->kp_total))@endif
+                            </td>
                             <td class="font-w600 text-center">{{($sisa_qty)}}</td>
                             <td class="font-w600 text-center">@rp($sisa_harga)</td>
                             <td class="font-w600 text-center">@rp($sisa_qty*$sisa_harga)</td>                            

@@ -22,31 +22,33 @@
                             <th class="text-center">No Faktur Jual</th>
                             <th class="text-center">Tanggal</th>
                             <th class="text-center">Nama Barang</th>
-                            <th class="text-center">Qty</th>
                             <th class="text-center">Harga</th>
+                            <th class="text-center">Qty</th>
                             <th class="text-center">Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php $no=1; $tot_retur=0; @endphp
+                        @php $no=1; $tot_retur=0; $rj_jml=0; @endphp
                         @foreach($data->list as $list)
                         @php $tot = $list->rj_jml*$list->rj_harga; @endphp
                         @php $tot_retur = $tot_retur + $tot; @endphp
+                        @php $rj_jml==$list->rj_jml @endphp
                         <tr>
                             <td class="font-w600 text-center">{{($list->rj_id)}}</td>
-                            <td class="font-w600 text-center">{{($list->jual_no_nota)}}</td>
+                            <td class="font-w600 text-center">JL-{{($list->jual_id)}}</td>
                             <td class="font-w600 text-center">@date($list->rj_tgl) </td>
                             <td class="font-w600 text-center">{{($list->barang_nama)}}</td>
-                            <td class="font-w600 text-center">{{($list->rj_jml)}}</td>
                             <td class="font-w600 text-center">@rp($list->rj_harga)</td>
+                            <td class="font-w600 text-center">{{($list->rj_jml)}}</td>
                             <td class="text-right">@rp($tot)</td>
                         </tr>
-                        @php $no=1+1; @endphp 
+                        @php $no=1+1;  $rj_jml=$rj_jml+$list->rj_jml @endphp 
                         @endforeach
                     </tbody>
                     <tfood>
                             <tr>
-                                <th colspan="6" class="text-right">Total</th>
+                                <th colspan="5" class="text-right">Total</th>
+                                <th colspan="1">@rp($rj_jml)</th>
                                 <th colspan="2">@rp($tot_retur)</th>
                             </tr>
                         </tfood>

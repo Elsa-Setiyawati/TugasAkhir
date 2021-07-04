@@ -22,6 +22,7 @@
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $('#mydatatable').DataTable({
@@ -43,5 +44,8 @@
         window.print();
         document.body.innerHTML = originalContents;
     }
+    $(document).ready(function() {
+        $('.js-select2-disable').select2().prop("disabled", true);
+    });
     </script>
     @yield('js_after')

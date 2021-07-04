@@ -71,9 +71,11 @@ class PembelianController extends Controller
             $save_kartu = DB::table('kartupersediaan')->insert([
                 'kp_tgl' => $request->beli_tgl,
                 'kp_barang_id' => $detail->barang_id,
-                'kp_jenis' => 'masuk',
+                'kp_jenis' => 'Pembelian',
+                'kp_ket' => 'Pembelian',
                 'kp_qty' =>  $detail->dbeli_jml,
-                'kp_harga' =>  $detail->dbeli_harga
+                'kp_harga' =>  $detail->dbeli_harga,
+                'kp_total' =>  $detail->dbeli_jml*$detail->dbeli_harga
                 ]);
                 Helper::harga_terbaru($detail->dbeli_barang_id);
         }
@@ -96,17 +98,20 @@ class PembelianController extends Controller
             $save_kartu = DB::table('kartupersediaan')->insert([
                 'kp_tgl' => $request->rb_tgl,
                 'kp_barang_id' => $returbarang->barang_id,
-                'kp_jenis' => 'keluar',
-                'kp_qty' =>  $returbarang->rb_jml,
-                'kp_harga' =>  $returbarang->rb_harga
+                'kp_jenis' => 'Pembelian',
+                'kp_ket' => 'Retur Pembelian',
+                'kp_qty' =>  -($returbarang->rb_jml),
+                'kp_harga' =>  $returbarang->barang_hargapokok,
+                'kp_total' =>  -($returbarang->rb_jml*$returbarang->barang_hargapokok)
                 ]);
+                Helper::harga_terbaru($returbarang->barang_id);
         foreach($retur_pembelian as $detail){
             $nominal_retur = $nominal_retur + ($detail->rb_jml*$detail->rb_harga);
         }
         $save_barang_beli = DB::table('pembelian')->where('beli_id', $request->rb_beli_id)->update(['beli_tot_retur_beli' => $nominal_retur]);
         Helper::harga_terbaru($returbarang->rb_barang_id);
         if ($id) {
-            return redirect(route('pembelian.index'));
+            return redirect('/pembelian/transaksi/'.$request->rb_beli_id.'/retur');
         }
         return redirect()->back();
     }

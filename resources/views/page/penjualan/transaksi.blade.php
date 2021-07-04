@@ -193,16 +193,17 @@
                                 name="djual_barang_id"
                                 data-placeholder="Pilih Barang" data-allow-clear="true"
                                 onchange="get_select()"
+                                
                             >
                             <option value="">==Pilih Data==</option>
                                 @foreach(@$data->barang as $barang)
-                                    <option harga="{{ $barang->barang_hargapokok + ($barang->barang_margin/100 * $barang->barang_hargapokok) }}" djual_hargapokok="{{$barang->barang_hargapokok}}" value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
+                                    <option harga="{{ $barang->barang_hargapokok + ($barang->barang_profit/100 * $barang->barang_hargapokok) }}" djual_hargapokok="{{$barang->barang_hargapokok}}" stok="{{$barang->barang_stok}}" value="{{ $barang->barang_id }}" @if($barang->barang_stok==0) disabled @endif>{{ $barang->barang_nama }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="djual_jml" class="control-label">Jumlah</label>
-                            <input type="number" class="form-control" max="{{$barang->barang_stok}}" required id="djual_jml" name="djual_jml">
+                            <input type="number" class="form-control" min="1" max="" required id="djual_jml" name="djual_jml">
                         </div>
                         <div class="form-group">
                             <label for="djual_harga" class="control-label">Harga</label>
@@ -236,17 +237,19 @@
                             <input type="hidden" class="form-control" id="rj_jual_id" name="rj_jual_id" >
                             <input type="hidden" class="form-control" id="rj_hargapokok" name="rj_hargapokok" >
                             <label for="rj_barang_id" class="control-label">Barang</label>
+                            <input type="hidden" class="form-control" id="rj_barang_id" name="rj_barang_id">
                             <select
                             readonly required 
-                                id="rj_barang_id"
-                                class="form-control select2"
+                            type="hidden"
+                                id="rj_barang_id_kw"
+                                class="form-control js-select2-disable"
                                 name="rj_barang_id"
                                 data-placeholder="Pilih Barang" data-allow-clear="true"
-                                onchange="get_select()"
+                                style="width: 100%"
                             >
-                            <option value="">==Pilih Data==</option>
+                            <!-- <option value="">==Pilih Data==</option> -->
                                 @foreach(@$data->barang as $barang)
-                                    <option harga="{{ $barang->barang_hargapokok + ($barang->barang_margin/100 * $barang->barang_hargapokok)}}" readonly value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
+                                    <option harga="{{ $barang->barang_hargapokok + ($barang->barang_profit/100 * $barang->barang_hargapokok)}}" readonly value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -256,7 +259,7 @@
                         </div>
                         <div class="form-group">
                             <label for="rj_jml" class="control-label">Jumlah</label>
-                            <input type="number" class="form-control" min="0" required id="rj_jml" name="rj_jml">
+                            <input type="number" class="form-control" min="1" required id="rj_jml" name="rj_jml">
                         </div>
                         <div class="form-group">
                             <label for="rj_harga" class="control-label">Harga</label>
@@ -285,8 +288,8 @@
 
     var subtotal = '{{$subtotal}}';
     $("#jual_tot_jual").val(subtotal);
-    $("#jual_bayar").val(subtotal-val);
-    $("#jual_diskon_jual").val(val);
+    $("#jual_bayar").val(subtotal-0);
+    $("#jual_diskon_jual").val(0);
     function potongan(val){
         hasil = parseFloat(subtotal)-parseFloat(val);
         $("#jual_bayar").val(hasil);
@@ -294,7 +297,9 @@
     function get_select(){
         let harga = $("#djual_barang_id option:selected").attr('harga');
         let djual_hargapokok = $("#djual_barang_id option:selected").attr('djual_hargapokok');
+        let stok = $("#djual_barang_id option:selected").attr('stok');
         $("#djual_harga").val(harga);
+        document.getElementById('djual_jml').max = stok;
         $("#djual_hargapokok").val(djual_hargapokok);
     }
     
@@ -319,6 +324,7 @@
         $('#rj_id').val(rj_id);
         $('#rj_jual_id').val(rj_jual_id);
         $('#rj_barang_id').val(rj_barang_id);
+        $("#rj_barang_id_kw").select2("val", rj_barang_id);
         $('#rj_tgl').val(rj_tgl);
         $('#rj_jml').val(parseFloat(rj_jml) - jml_retur);
         $('#rj_harga').val(rj_harga);
