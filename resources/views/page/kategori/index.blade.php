@@ -22,8 +22,8 @@
                                 <td>{{$no}}</td>
                                 <td>{{$list->kategori_nama}}</td>
                                 <td>
-                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->kategori_id}}', '{{$list->kategori_nama}}')" data-whatever="@mdo">Edit</a>
-                                    <a class="btn btn-danger text-white" onclick="del_data('{{$list->kategori_id}}')">Hapus</a>
+                                    <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->kategori_id}}', '{{$list->kategori_nama}}')" data-whatever="@mdo"></a>
+                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->kategori_id}}')"></a>
 
                                 </td>
                             </tr>

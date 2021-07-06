@@ -26,8 +26,8 @@
                                 <td>{{$list->pemasok_alamat}}</td>
                                 <td>{{$list->pemasok_notelp}}</td>
                                 <td>
-                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->pemasok_id}}', '{{$list->pemasok_nama}}', '{{$list->pemasok_alamat}}', '{{$list->pemasok_notelp}}' )" data-whatever="@mdo">Edit</a>
-                                    <a class="btn btn-danger text-white" onclick="del_data('{{$list->pemasok_id}}')">Hapus</a>
+                                    <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->pemasok_id}}', '{{$list->pemasok_nama}}', '{{$list->pemasok_alamat}}', '{{$list->pemasok_notelp}}' )" data-whatever="@mdo"></a>
+                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->pemasok_id}}')"></a>
 
                                 </td>
                             </tr>

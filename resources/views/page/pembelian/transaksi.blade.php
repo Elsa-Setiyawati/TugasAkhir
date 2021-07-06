@@ -242,6 +242,7 @@
                                 type="hidden"
                                 id="rb_barang_id_kw" 
                                 class="form-control js-select2-disable"
+                                name="rb_barang_id"
                                 data-allow-clear="true"
                                 onchange="get_select()"
                                 style="width: 100%"
@@ -329,7 +330,7 @@
         // $('#rb_id').val(rb_id);
         $('#rb_beli_id').val(rb_beli_id);
         $('#rb_barang_id').val(rb_barang_id);
-        $("#rb_barang_id_kw").select2("val", rb_barang_id);
+        $("#rb_barang_id_kw").select2(rb_barang_id_kw);
         // $('#rb_barang_id').val(rb_barang_id);
         // $('#rb_tgl').val(rb_tgl);
         $('#rb_jml').val(sisanya);

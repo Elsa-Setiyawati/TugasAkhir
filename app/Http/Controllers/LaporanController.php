@@ -41,7 +41,7 @@ class LaporanController extends Controller
         ->join('users', 'id', 'beli_user_id')
         ->join('barang', 'barang_id', 'dbeli_barang_id')
         ->whereBetween('beli_tgl', [$data->startdate, $data->enddate])
-        ->orderby('beli_tgl', 'asc');
+        ->orderby('beli_id', 'asc');
         $daftar_pembelian = $detail_pembelian->pluck('dbeli_id');
         $data->list = $detail_pembelian->get();
 
@@ -68,7 +68,7 @@ class LaporanController extends Controller
         ->join('pembelian', 'beli_id', 'rb_beli_id')
         ->join('barang', 'barang_id', 'rb_barang_id')
         ->whereBetween('rb_tgl', [$data->startdate, $data->enddate])
-        ->orderby('rb_tgl', 'asc');
+        ->orderby('rb_id', 'asc');
         //end variable buat ambil data pembiayaan, before get
 
         //start variable buat ambil data id pembiayaan
@@ -94,7 +94,7 @@ class LaporanController extends Controller
         ->join('users', 'id', 'jual_user_id')
         ->join('barang', 'barang_id', 'djual_barang_id')
         ->whereBetween('jual_tgl', [$data->startdate, $data->enddate])
-        ->orderby('jual_tgl', 'asc');
+        ->orderby('jual_id', 'asc');
         //end variable buat ambil data pembiayaan, before get
 
         //start variable buat ambil data id pembiayaan

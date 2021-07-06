@@ -26,8 +26,8 @@
                                 <td>{{$list->email}}</td>
                                 <td>{{$list->hak_akses}}</td>
                                 <td>
-                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->id}}', '{{$list->name}}', '{{$list->email}}', '{{$list->hak_akses}}' )" data-whatever="@mdo">Edit</a>
-                                    <a class="btn btn-danger text-white" onclick="del_data('{{$list->id}}')">Hapus</a>
+                                    <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->id}}', '{{$list->name}}', '{{$list->email}}', '{{$list->hak_akses}}' )" data-whatever="@mdo"></a>
+                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->id}}')"></a>
 
                                 </td>
                             </tr>

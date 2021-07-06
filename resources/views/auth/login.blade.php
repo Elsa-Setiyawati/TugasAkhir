@@ -25,7 +25,11 @@
             <div class="card-body">
                 <form class="form-horizontal form-material" method="post" id="loginform" action="{{ route('login') }}">
                 @csrf
-                    <h3 class="box-title m-b-20">Log In</h3>
+                <br><br><br>
+                <h3 class="box-title m-b-50 text-center" >SISTEM PERSEDIAAN</h3>
+                <h3 class="box-title m-b-50 text-center" >TOKO BINTANG ELEKTRONIK</h3> <br>
+                <label for="checkbox-title"> Sign In </label>
+                    <!-- <h3 class="box-title m-b-20 text-left">Sign In</h3> -->
                     <div class="form-group ">
                         <div class="col-xs-12">
                             <input id="email" name="email" class="form-control @error('email') is-invalid @enderror" type="email" value="{{ old('email') }}" required="" placeholder="Email"> 
@@ -58,14 +62,14 @@
                     
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
-                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Sign In</button>
                         </div>
                     </div>
-        <div class="form-group m-b-0">
+        <!-- <div class="form-group m-b-0">
           <div class="col-sm-12 text-center">
             <p>Don't have an account? <a href="/register" class="text-primary m-l-5"><b>Sign Up</b></a></p>
           </div>
-        </div>
+        </div> -->
                 </form>
                 <form class="form-horizontal" id="recoverform" href="/home" >
         <div class="form-group ">

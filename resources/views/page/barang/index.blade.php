@@ -32,9 +32,8 @@
                                 <td>@rp($list->barang_hargabeli)</td>
                                 <td>@rp($list->barang_hargapokok)</td>   
                                 <td>
-                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->barang_id}}', '{{$list->barang_nama}}', '{{$list->barang_profit}}', '{{$list->barang_stok}}', '{{$list->barang_hargabeli}}', '{{$list->barang_hargapokok}}', '{{$list->barang_kategori_id}}',)" data-whatever="@mdo">Edit</a>
-                                    <a class="btn btn-danger text-white" onclick="del_data('{{$list->barang_id}}')">Hapus</a>
-
+                                    <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->barang_id}}', '{{$list->barang_nama}}', '{{$list->barang_profit}}', '{{$list->barang_stok}}', '{{$list->barang_hargabeli}}', '{{$list->barang_hargapokok}}', '{{$list->barang_kategori_id}}',)" data-whatever="@mdo"></a>
+                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->barang_id}}')"></a>
                                 </td>
                             </tr>
                             @php $no++; @endphp

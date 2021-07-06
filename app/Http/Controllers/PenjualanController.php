@@ -28,7 +28,8 @@ class PenjualanController extends Controller
     {
         $data = new \stdClass();
         $data->date = Carbon::now()->format("Y-m-d");
-        $data->detail_penjualan = DB::table('detail_penjualan')->join('barang', 'barang_id', 'djual_barang_id')->whereNull('djual_jual_id')->get();
+        $data->detail_penjualan = DB::table('detail_penjualan')->join('barang', 'barang_id', 'djual_barang_id')->whereNull('djual_jual_id') ->get();
+        // ->orderby('djual_id', 'asc')
         $data->pelanggan = DB::table('pelanggan')->get();
         $data->barang = DB::table('barang')->get();
         $data->users = DB::table('users')->get();
