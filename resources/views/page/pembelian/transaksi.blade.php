@@ -10,7 +10,7 @@
                     <div class="form-group col-4">
                         <input type="hidden" class="form-control" id="beli_id" name="beli_id" value="{{($data->id) ? $data->beli->beli_id : ''}}">
                         <label for="beli_tgl" class="control-label">Tanggal</label>
-                        <input type="date" class="form-control" id="beli_tgl" name="beli_tgl" value="{{($data->id) ? $data->beli->beli_tgl : $data->date}}">
+                        <input type="text" class="form-control" id="beli_tgl" name="beli_tgl" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tgl : ''}}">
                     </div>
                     <div class="form-group col-4">
                         <label for="beli_pemasok_id" class="control-label">Pemasok</label>
@@ -102,8 +102,8 @@
                                 @if($data->action!='detail')
                                 <td>
                                 @if( $data->id==null) 
-                                <a class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$detail->dbeli_id}}', '{{$detail->dbeli_barang_id}}', '{{$detail->dbeli_jml}}', '{{$detail->dbeli_harga}}',)" data-whatever="@mdo">Edit</a>
-                                    <a class="btn btn-danger text-white" onclick="del_data('{{$detail->dbeli_id}}')">Hapus</a>
+                                <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$detail->dbeli_id}}', '{{$detail->dbeli_barang_id}}', '{{$detail->dbeli_jml}}', '{{$detail->dbeli_harga}}',)" data-whatever="@mdo"></a>
+                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$detail->dbeli_id}}')"></a>
                                     @elseif($data->action=='retur')
                                     <a class="btn btn-warning text-white" data-toggle="modal" data-target="#exampleModal1" onclick="set_form_retur('Retur Barang', '{{$detail->dbeli_beli_id}}', '{{$detail->dbeli_barang_id}}', '{{$detail->dbeli_jml}}', '{{$detail->dbeli_harga}}', '{{$detail->barang_stok}}' )" data-whatever="@mdo">Retur</a>
                                     @endif
@@ -236,16 +236,17 @@
                             <input type="hidden" class="form-control" id="rb_id" name="rb_id">
                             <input type="hidden" class="form-control" id="rb_beli_id" name="rb_beli_id" >
                             <label for="rb_barang_id" class="control-label">Barang</label>
-                            <input type="hidden" class="form-control" id="rb_barang_id" name="rb_barang_id">
+                            <!-- <input type="hidden" class="form-control" id="rb_barang_id" name="rb_barang_id"> -->
                             <select
                             readonly required
-                                type="hidden"
-                                id="rb_barang_id_kw" 
-                                class="form-control js-select2-disable"
+                             
+                                id="rb_barang_id" 
+                                class="form-control select2"
                                 name="rb_barang_id"
                                 data-allow-clear="true"
                                 onchange="get_select()"
                                 style="width: 100%"
+                                {{($data->id) ? 'readonly' : ''}}
                             >
                             <!-- <option value="">==Pilih Data==</option> -->
                                 @foreach(@$data->barang as $barang)
@@ -255,7 +256,7 @@
                         </div>
                         <div class="form-group">
                             <label for="rb_tgl" class="control-label">Tanggal</label>
-                            <input type="date" class="form-control" required id="rb_tgl" name="rb_tgl">
+                            <input type="text" class="form-control" required id="rb_tgl" name="rb_tgl">
                         </div>
                         <div class="form-group">
                             <label for="rb_jml" class="control-label">Jumlah</label>
@@ -281,6 +282,16 @@
 
 @section('js_after')
 <script>
+$('#beli_tgl').datepicker({
+    format: "yyyy-mm-dd",
+    endDate: '+1d',
+datesDisabled: '+1d'
+});
+
+$('#rb_tgl').datepicker({
+    format: "yyyy-mm-dd",
+    startDate: '-0d'
+});
   @if($data->id)
     var retur_pembelian = @json($data->retur_pembelian, JSON_PRETTY_PRINT) ;
     @endif
@@ -330,7 +341,7 @@
         // $('#rb_id').val(rb_id);
         $('#rb_beli_id').val(rb_beli_id);
         $('#rb_barang_id').val(rb_barang_id);
-        $("#rb_barang_id_kw").select2(rb_barang_id_kw);
+        // $("#rb_barang_id_kw").select2(rb_barang_id_kw);
         // $('#rb_barang_id').val(rb_barang_id);
         // $('#rb_tgl').val(rb_tgl);
         $('#rb_jml').val(sisanya);
