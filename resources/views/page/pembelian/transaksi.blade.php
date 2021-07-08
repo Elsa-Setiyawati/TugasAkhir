@@ -128,7 +128,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Return Barang 
+                <h4 class="card-title">Retur Barang 
                 </h4>
                 <div class="table-responsive m-t-40">
                     <table id="mydatatable1" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
@@ -236,23 +236,21 @@
                             <input type="hidden" class="form-control" id="rb_id" name="rb_id">
                             <input type="hidden" class="form-control" id="rb_beli_id" name="rb_beli_id" >
                             <label for="rb_barang_id" class="control-label">Barang</label>
-                            <!-- <input type="hidden" class="form-control" id="rb_barang_id" name="rb_barang_id"> -->
-                            <input 
+                            <input type="hidden" class="form-control" id="rb_barang_id" name="rb_barang_id">
+                            <select 
                             readonly required
                              
-                                id="rb_barang_id" 
-                                class="form-control select2"
-                                name="rb_barang_id"
+                                id="rb_barang_id_kw" 
+                                class="form-control js-select2-disable"
                                 data-allow-clear="true"
                                 onchange="get_select()"
                                 style="width: 100%"
-                                {{($data->id) ? 'readonly' : ''}}
                             >
-                            <!-- <option value="">==Pilih Data==</option> -->
-                                <!-- @foreach(@$data->barang as $barang)
+                            <option value="">==Pilih Data==</option>
+                                 @foreach(@$data->barang as $barang)
                                     <option harga="{{ $barang->barang_hargabeli }}"  readonly value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
-                                @endforeach -->
-                            </input>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="rb_tgl" class="control-label">Tanggal</label>
@@ -341,7 +339,7 @@ $('#rb_tgl').datepicker({
         // $('#rb_id').val(rb_id);
         $('#rb_beli_id').val(rb_beli_id);
         $('#rb_barang_id').val(rb_barang_id);
-        // $("#rb_barang_id_kw").select2(rb_barang_id_kw);
+        $("#rb_barang_id_kw").select2('val',rb_barang_id);
         // $('#rb_barang_id').val(rb_barang_id);
         // $('#rb_tgl').val(rb_tgl);
         $('#rb_jml').val(sisanya);

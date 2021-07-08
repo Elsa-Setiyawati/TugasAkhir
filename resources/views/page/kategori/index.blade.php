@@ -50,15 +50,14 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="kategori_id" name="kategori_id">
-                            <label for="kategori_nama" class="control-label">Nama Kategori</label>
-                            <input type="text" class="form-control" required id="kategori_nama" name="kategori_nama">
-
+                            <label for="kategori_nama" class="control-label">Nama Kategori <span id="alert" class="text-danger"></span></label>
+                            <input type="text" onchange="cek(this.value)" class="form-control" required id="kategori_nama" name="kategori_nama">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary btn-submit">Submit</button>
                 </div>
             </div>
         </div>
@@ -70,7 +69,25 @@
 
 @section('js_after')
 <script>
+var kategori = @json($data->list, JSON_PRETTY_PRINT) ;
+var old_nama = null;
+
+    function cek(value){
+        $('#alert').text('');
+        $('.btn-submit').prop('disabled', false);
+        if(old_nama.toLowerCase() != value.toLowerCase()){
+            kategori.forEach(myget => {
+                if(myget.kategori_nama.toLowerCase() == value.toLowerCase()){
+                    $('#alert').text('*Data Sudah digunakan*');
+                    $('.btn-submit').prop('disabled', true);
+                }
+            })
+        }
+        
+    }
+
     function set_form(title, kategori_id, kategori_nama) {
+        old_nama = (kategori_nama) ? kategori_nama : '' ;
         $('#titleModal').text(title);
         $('#kategori_id').val(kategori_id);
         $('#kategori_nama').val(kategori_nama);

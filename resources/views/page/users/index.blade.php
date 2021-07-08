@@ -54,8 +54,8 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="id" name="id">
-                            <label for="name" class="control-label">Nama</label>
-                            <input type="text" class="form-control" required id="name" name="name">
+                            <label for="name" class="control-label">Nama <span id="alert" class="text-danger"></span></label>
+                            <input type="text" onchange="cek(this.value)" class="form-control" required id="name" name="name">
                             </div>
                             <div class="form-group">
                             <label for="email" class="control-label">Email</label>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary btn-submit">Submit</button>
                 </div>
             </div>
         </div>
@@ -91,7 +91,24 @@
 
 @section('js_after')
 <script>
+var users = @json($data->list, JSON_PRETTY_PRINT) ;
+var old_nama = null;
+
+    function cek(value){
+        $('#alert').text('');
+        $('.btn-submit').prop('disabled', false);
+        if(old_nama.toLowerCase() != value.toLowerCase()){
+            users.forEach(myget => {
+                if(myget.name.toLowerCase() == value.toLowerCase()){
+                    $('#alert').text('*Data Sudah digunakan*');
+                    $('.btn-submit').prop('disabled', true);
+                }
+            })
+        }
+        
+    }
     function set_form(title, id,name, email, hak_akses ) {
+        old_nama = (name) ? name : '' ;
         var x = document.getElementById("password_show");
   if (title=='Edit Data') {
     document.getElementById("password").removeAttribute("required"); 

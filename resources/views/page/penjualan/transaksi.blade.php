@@ -237,18 +237,17 @@
                             <input type="hidden" class="form-control" id="rj_jual_id" name="rj_jual_id" >
                             <input type="hidden" class="form-control" id="rj_hargapokok" name="rj_hargapokok" >
                             <label for="rj_barang_id" class="control-label">Barang</label>
-                            <!-- <input type="hidden" class="form-control" id="rj_barang_id" name="rj_barang_id"> -->
+                            <input type="hidden" class="form-control" id="rj_barang_id" name="rj_barang_id">
                             <select
                             readonly required 
                             
-                                id="rj_barang_id"
-                                class="form-control select2"
-                                name="rj_barang_id"
-                                data-placeholder="Pilih Barang" data-allow-clear="true"
+                                id="rj_barang_id_kw"
+                                class="form-control js-select2-disable"
+                                data-allow-clear="true"
+                                onchange="get_select()"
                                 style="width: 100%"
-                                {{($data->id) ? 'readonly' : ''}}
                             >
-                            <!-- <option value="">==Pilih Data==</option> -->
+                            <option value="">==Pilih Data==</option>
                                 @foreach(@$data->barang as $barang)
                                     <option harga="{{ $barang->barang_hargapokok + ($barang->barang_profit/100 * $barang->barang_hargapokok)}}" readonly value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
                                 @endforeach
@@ -335,7 +334,7 @@ $('#rj_tgl').datepicker({
         $('#rj_id').val(rj_id);
         $('#rj_jual_id').val(rj_jual_id);
         $('#rj_barang_id').val(rj_barang_id);
-        // $("#rj_barang_id_kw").select2("val", rj_barang_id);
+        $("#rj_barang_id_kw").select2("val", rj_barang_id);
         $('#rj_tgl').val(rj_tgl);
         $('#rj_jml').val(parseFloat(rj_jml) - jml_retur);
         $('#rj_harga').val(rj_harga);

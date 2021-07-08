@@ -54,8 +54,8 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="pemasok_id" name="pemasok_id">
-                            <label for="pemasok_nama" class="control-label">Nama</label>
-                            <input type="text" class="form-control" required id="pemasok_nama" name="pemasok_nama">
+                            <label for="pemasok_nama" class="control-label">Nama <span id="alert" class="text-danger"></span></label>
+                            <input type="text" onchange="cek(this.value)" class="form-control" required id="pemasok_nama" name="pemasok_nama">
                             </div>
                             <div class="form-group">
                             <label for="pemasok_alamat" class="control-label">Alamat</label>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary btn-submit">Submit</button>
                 </div>
             </div>
         </div>
@@ -81,7 +81,25 @@
 
 @section('js_after')
 <script>
+var pemasok = @json($data->list, JSON_PRETTY_PRINT) ;
+var old_nama = null;
+
+    function cek(value){
+        $('#alert').text('');
+        $('.btn-submit').prop('disabled', false);
+        if(old_nama.toLowerCase() != value.toLowerCase()){
+            pemasok.forEach(myget => {
+                if(myget.pemasok_nama.toLowerCase() == value.toLowerCase()){
+                    $('#alert').text('*Data Sudah digunakan*');
+                    $('.btn-submit').prop('disabled', true);
+                }
+            })
+        }
+        
+    }
+
     function set_form(title, pemasok_id, pemasok_nama, pemasok_alamat, pemasok_notelp ) {
+        old_nama = (pemasok_nama) ? pemasok_nama : '' ;
         $('#titleModal').text(title);
         $('#pemasok_id').val(pemasok_id);
         $('#pemasok_nama').val(pemasok_nama);

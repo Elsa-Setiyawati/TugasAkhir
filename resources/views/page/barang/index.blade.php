@@ -59,8 +59,8 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="barang_id" name="barang_id">
-                            <label for="barang_nama" class="control-label">Nama Barang</label>
-                            <input type="text" class="form-control" required id="barang_nama" name="barang_nama">
+                            <label for="barang_nama" class="control-label">Nama Barang <span id="alert" class="text-danger"></span></label>
+                            <input type="text" onchange="cek(this.value)" class="form-control" required id="barang_nama" name="barang_nama">
                         </div>
                         <div class="form-group">
                             <label for="barang_profit" class="control-label">Persentase Laba (%)</label>
@@ -98,19 +98,35 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary btn-submit">Submit</button>
                 </div>
             </div>
         </div>
     </form>
-
 </div>
 
 @endsection
 
 @section('js_after')
 <script>
+var barang = @json($data->list, JSON_PRETTY_PRINT) ;
+var old_nama = null;
+
+    function cek(value){
+        $('#alert').text('');
+        $('.btn-submit').prop('disabled', false);
+        if(old_nama.toLowerCase() != value.toLowerCase()){
+            barang.forEach(myget => {
+                if(myget.barang_nama.toLowerCase() == value.toLowerCase()){
+                    $('#alert').text('*Data Sudah digunakan*');
+                    $('.btn-submit').prop('disabled', true);
+                }
+            })
+        }
+        
+    }
     function set_form(title, barang_id, barang_nama, barang_profit, barang_stok, barang_hargabeli, barang_hargapokok,barang_kategori_id) {
+        old_nama = (barang_nama) ? barang_nama : '' ;
         $('#titleModal').text(title);
         $('#barang_id').val(barang_id);
         $('#barang_nama').val(barang_nama); 

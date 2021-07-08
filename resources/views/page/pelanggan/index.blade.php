@@ -54,8 +54,8 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="pelanggan_id" name="pelanggan_id">
-                            <label for="pelanggan_nama" class="control-label">Nama</label>
-                            <input type="text" class="form-control" required id="pelanggan_nama" name="pelanggan_nama">
+                            <label for="pelanggan_nama" class="control-label">Nama <span id="alert" class="text-danger"></span></label>
+                            <input type="text" onchange="cek(this.value)" class="form-control" required id="pelanggan_nama" name="pelanggan_nama">
                             </div>
                             <div class="form-group">
                             <label for="pelanggan_alamat" class="control-label">Alamat</label>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary btn-submit">Submit</button>
                 </div>
             </div>
         </div>
@@ -81,7 +81,24 @@
 
 @section('js_after')
 <script>
+var pelanggan = @json($data->list, JSON_PRETTY_PRINT) ;
+var old_nama = null;
+
+    function cek(value){
+        $('#alert').text('');
+        $('.btn-submit').prop('disabled', false);
+        if(old_nama.toLowerCase() != value.toLowerCase()){
+            pelanggan.forEach(myget => {
+                if(myget.pelanggan_nama.toLowerCase() == value.toLowerCase()){
+                    $('#alert').text('*Data Sudah digunakan*');
+                    $('.btn-submit').prop('disabled', true);
+                }
+            })
+        }
+        
+    }
     function set_form(title, pelanggan_id, pelanggan_nama, pelanggan_alamat, pelanggan_notelp ) {
+        old_nama = (pelanggan_nama) ? pelanggan_nama : '' ;
         $('#titleModal').text(title);
         $('#pelanggan_id').val(pelanggan_id);
         $('#pelanggan_nama').val(pelanggan_nama);
