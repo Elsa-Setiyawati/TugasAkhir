@@ -10,7 +10,7 @@
                     <div class="form-group col-4">
                         <input type="hidden" class="form-control" id="jual_id" name="jual_id" value="{{($data->id) ? $data->jual->jual_id : ''}}">
                         <label for="jual_tgl" class="control-label">Tanggal</label>
-                        <input type="text" class="form-control" required id="jual_tgl" name="jual_tgl" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->jual->jual_tgl : ''}}">
+                        <input type="text" class="form-control" required id="jual_tgl" name="jual_tgl" {{($data->id) ? 'disabled=true' : ''}} value="{{($data->id) ? $data->jual->jual_tgl : ''}}">
                     </div>
                     <div class="form-group col-4">
                         <label for="jual_pelanggan_id" class="control-label">Pelanggan</label>
@@ -20,7 +20,7 @@
                                 name="jual_pelanggan_id"
                                 required
                                 data-placeholder="Pilih Pelanggan" data-allow-clear="true"
-                                {{($data->id) ? 'readonly' : ''}}
+                                {{($data->id) ? 'disabled=true' : ''}}
                             >
                             <option value="">==Pilih Data==</option>
                                 @foreach(@$data->pelanggan as $pelanggan)
@@ -36,7 +36,7 @@
                                 name="jual_user_id"
                                 required
                                 data-placeholder="Pilih Pengguna" data-allow-clear="true"
-                                {{($data->id) ? 'readonly' : ''}}
+                                {{($data->id) ? 'disabled=true' : ''}}
                             >
                             <option value="">==Pilih Data==</option>
                                 @foreach(@$data->users as $users)
@@ -127,7 +127,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Return Barang 
+                <h4 class="card-title">Retur Barang 
                 </h4>
                 <div class="table-responsive m-t-40">
                     <table id="mydatatable1" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">

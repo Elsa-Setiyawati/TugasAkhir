@@ -10,7 +10,7 @@
                     <div class="form-group col-4">
                         <input type="hidden" class="form-control" id="beli_id" name="beli_id" value="{{($data->id) ? $data->beli->beli_id : ''}}">
                         <label for="beli_tgl" class="control-label">Tanggal</label>
-                        <input type="text" class="form-control" id="beli_tgl" name="beli_tgl" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tgl : ''}}">
+                        <input type="text" class="form-control" id="beli_tgl" name="beli_tgl" {{($data->id) ? 'disabled=true' : ''}} value="{{($data->id) ? $data->beli->beli_tgl : ''}}">
                     </div>
                     <div class="form-group col-4">
                         <label for="beli_pemasok_id" class="control-label">Pemasok</label>
@@ -20,7 +20,7 @@
                                 name="beli_pemasok_id"
                                 required
                                 data-placeholder="Pilih Pemasok" data-allow-clear="true"
-                                {{($data->id) ? 'readonly' : ''}}
+                                {{($data->id) ? 'disabled=true' : ''}}
                             >
                             <option value="">==Pilih Data==</option>
                                 @foreach(@$data->pemasok as $pemasok)
@@ -36,7 +36,7 @@
                                 name="beli_user_id"
                                 required
                                 data-placeholder="Pilih Pengguna" data-allow-clear="true"
-                                {{($data->id) ? 'readonly' : ''}}
+                                {{($data->id) ? 'disabled=true' : ''}}
                             >
                             <option value="">==Pilih Data==</option>
                                 @foreach(@$data->users as $users)
@@ -237,7 +237,7 @@
                             <input type="hidden" class="form-control" id="rb_beli_id" name="rb_beli_id" >
                             <label for="rb_barang_id" class="control-label">Barang</label>
                             <!-- <input type="hidden" class="form-control" id="rb_barang_id" name="rb_barang_id"> -->
-                            <select
+                            <input 
                             readonly required
                              
                                 id="rb_barang_id" 
@@ -249,10 +249,10 @@
                                 {{($data->id) ? 'readonly' : ''}}
                             >
                             <!-- <option value="">==Pilih Data==</option> -->
-                                @foreach(@$data->barang as $barang)
-                                    <option harga="{{ $barang->barang_hargabeli }}" readonly value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
-                                @endforeach
-                            </select>
+                                <!-- @foreach(@$data->barang as $barang)
+                                    <option harga="{{ $barang->barang_hargabeli }}"  readonly value="{{ $barang->barang_id }}">{{ $barang->barang_nama }}</option>
+                                @endforeach -->
+                            </input>
                         </div>
                         <div class="form-group">
                             <label for="rb_tgl" class="control-label">Tanggal</label>
