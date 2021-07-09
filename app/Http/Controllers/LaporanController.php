@@ -180,7 +180,7 @@ class LaporanController extends Controller
         ->where('kp_tgl', '<', $data->startdate)
         ->where('kp_barang_id', $data->barang_id)
         ->join('barang', 'barang_id', 'kp_barang_id')
-        ->orderby('kp_id', 'asc')->get();
+        ->orderby('kp_tgl', 'asc')->get();
         foreach($persediaan_awal as $pa){
             if($pa->kp_jenis == 'Persediaan Awal' || $pa->kp_jenis == 'masuk'){
                 $data->persediaan_awal = $data->persediaan_awal + $pa->kp_qty;

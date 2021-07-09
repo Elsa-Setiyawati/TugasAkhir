@@ -50,8 +50,8 @@
                             <td class="font-w600 text-center"></td>
                             <td class="font-w600 text-center"></td>
                             <td class="font-w600 text-center">{{($data->awalan->qty)}}</td>
-                            <td class="font-w600 text-center">{{($data->awalan->average)}}</td>
-                            <td class="font-w600 text-center">{{($data->awalan->total)}}</td>
+                            <td class="font-w600 text-center">@rp($data->awalan->average)</td>
+                            <td class="font-w600 text-center">@rp($data->awalan->total)</td>
                         </tr>
                         @php $no=1+1; 
                         $sisa_qty = $data->awalan->qty; 
