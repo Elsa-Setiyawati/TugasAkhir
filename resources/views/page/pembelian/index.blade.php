@@ -14,8 +14,6 @@
                                 <th>Tanggal</th>
                                 <th>Pemasok</th>
                                 <th>Nominal</th>
-                                <th>Diskon</th>
-                                <th>Total</th>
                                 <th>Retur</th>
                                 <th>Action</th>
                             </tr>
@@ -23,14 +21,11 @@
                         <tbody>
                             @php $no=1; @endphp
                             @foreach($data->list as $list)
-                            @php $tot = $list->beli_tot_beli - $list->beli_diskon_beli; @endphp
                             <tr>
                                 <td>BL-{{$list->beli_id}}</td>
                                 <td>@date($list->beli_tgl)</td>
                                 <td>{{$list->pemasok_nama}}</td>
                                 <td>@rp($list->beli_tot_beli)</td>
-                                <td>@rp($list->beli_diskon_beli)</td>
-                                <td>@rp($tot)</td>
                                 <td>@rp($list->beli_tot_retur_beli)</td>
                                 <td>
                                     <a class="btn btn-info text-white" href="/pembelian/transaksi/{{$list->beli_id}}/detail">Detail</a>

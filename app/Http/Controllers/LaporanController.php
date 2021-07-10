@@ -145,7 +145,8 @@ class LaporanController extends Controller
         ->where('kp_tgl', '<', $data->startdate)
         ->where('kp_barang_id', $data->barang_id)
         ->join('barang', 'barang_id', 'kp_barang_id')
-        ->orderby('kp_tgl', 'asc')->get();
+        ->orderby('kp_tgl', 'asc')
+        ->orderby('kp_id', 'asc')->get();
         foreach($persediaan_awal as $pa){
             if($pa->kp_jenis == 'Persediaan Awal' || $pa->kp_jenis == 'masuk'){
                 $data->persediaan_awal = $data->persediaan_awal + $pa->kp_qty;
@@ -153,12 +154,15 @@ class LaporanController extends Controller
                 $data->persediaan_awal = $data->persediaan_awal - $pa->kp_qty;
             }
         }
+
+        $data->awalan = Helper::persediaan_awal($data->barang_id, $data->startdate);
         //start variable buat ambil data pembiayaan, before get
         $kartupersediaan = DB::table('kartupersediaan')
         ->join('barang', 'barang_id', 'kp_barang_id')
         ->where('kp_barang_id', $data->barang_id)
         ->whereBetween('kp_tgl', [$data->startdate, $data->enddate])
-        ->orderby('kp_tgl', 'asc');
+        ->orderby('kp_tgl', 'asc')
+        ->orderby('kp_id', 'asc');
 
 
         //start variable buat ambil data pembiayaan
@@ -180,7 +184,9 @@ class LaporanController extends Controller
         ->where('kp_tgl', '<', $data->startdate)
         ->where('kp_barang_id', $data->barang_id)
         ->join('barang', 'barang_id', 'kp_barang_id')
-        ->orderby('kp_tgl', 'asc')->get();
+        ->orderby('kp_tgl', 'asc')
+        ->orderby('kp_id', 'asc')
+        ->get();
         foreach($persediaan_awal as $pa){
             if($pa->kp_jenis == 'Persediaan Awal' || $pa->kp_jenis == 'masuk'){
                 $data->persediaan_awal = $data->persediaan_awal + $pa->kp_qty;
@@ -193,7 +199,8 @@ class LaporanController extends Controller
         ->join('barang', 'barang_id', 'kp_barang_id')
         ->where('kp_barang_id', $data->barang_id)
         ->whereBetween('kp_tgl', [$data->startdate, $data->enddate])
-        ->orderby('kp_tgl', 'asc');
+        ->orderby('kp_tgl', 'asc')
+        ->orderby('kp_id', 'asc');
 
         $data->awalan = Helper::persediaan_awal($data->barang_id, $data->startdate);
 

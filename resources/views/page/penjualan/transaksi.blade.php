@@ -48,14 +48,14 @@
                         <label for="jual_tot_jual" class="control-label">Nominal</label>
                         <input type="number" readonly class="form-control" required id="jual_tot_jual" name="jual_tot_jual" value="{{($data->id) ? $data->jual->jual_tot_jual : ''}}">
                     </div>
-                    <div class="form-group col-4">
+                    <!-- <div class="form-group col-4">
                         <label for="jual_diskon_jual" class="control-label">Potongan</label>
                         <input type="number" onchange="potongan(this.value)" class="form-control" id="jual_diskon_jual" name="jual_diskon_jual" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->jual->jual_diskon_jual : ''}}">
                     </div>
                     <div class="form-group col-4">
                         <label for="jual_bayar" class="control-label">Total</label>
                         <input type="number" readonly class="form-control" required id="jual_bayar" value="{{($data->id) ? $data->jual->jual_tot_jual-$data->jual->jual_diskon_jual : ''}}">
-                    </div>
+                    </div> -->
                     @if(!$data->id)
                     <div class="modal-footer col-12">
                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -298,12 +298,12 @@ $('#rj_tgl').datepicker({
 
     var subtotal = '{{$subtotal}}';
     $("#jual_tot_jual").val(subtotal);
-    $("#jual_bayar").val(subtotal-0);
-    $("#jual_diskon_jual").val(0);
-    function potongan(val){
-        hasil = parseFloat(subtotal)-parseFloat(val);
-        $("#jual_bayar").val(hasil);
-    }
+    // $("#jual_bayar").val(subtotal-0);
+    // $("#jual_diskon_jual").val(0);
+    // function potongan(val){
+    //     hasil = parseFloat(subtotal)-parseFloat(val);
+    //     $("#jual_bayar").val(hasil);
+    // }
     function get_select(){
         let harga = $("#djual_barang_id option:selected").attr('harga');
         let djual_hargapokok = $("#djual_barang_id option:selected").attr('djual_hargapokok');

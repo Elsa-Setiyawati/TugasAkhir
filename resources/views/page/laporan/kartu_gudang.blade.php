@@ -28,15 +28,15 @@
                     </thead>
                     <tbody>
                         @php $no=1; $sisa = 0;   @endphp
-                        @if($data->persediaan_awal>0)
+                        @if($data->awalan->qty>0)
                         <tr>
                             <td class="font-w600 text-center">{{($no=1)}}</td>
                             <td class="font-w600 text-center">@date($data->startdate) </td>
                             <td class="font-w600 text-center"></td>
                             <td class="font-w600 text-center"></td>
-                            <td class="font-w600 text-center">{{($data->persediaan_awal)}}</td>
+                            <td class="font-w600 text-center">{{($data->awalan->qty)}}</td>
                         </tr>
-                        @php $no=1+1; $sisa = $data->persediaan_awal;  @endphp
+                        @php $no=1+1; $sisa = $data->awalan->qty;  @endphp
                         @endif
                         @foreach($data->list as $list)
                         @php $sisa = $sisa + $list->kp_qty; @endphp

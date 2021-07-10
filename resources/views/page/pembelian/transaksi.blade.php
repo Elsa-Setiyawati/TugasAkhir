@@ -46,16 +46,7 @@
                     </div>
                     <div class="form-group col-3">
                         <label for="beli_tot_beli" class="control-label">Nominal</label>
-                        <input type="number" class="form-control" required id="beli_tot_beli" name="beli_tot_beli" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tot_beli : ''}}">
-                    </div>
-                    
-                    <div class="form-group col-4">
-                        <label for="beli_diskon_beli" class="control-label">Potongan</label>
-                        <input type="number" onchange="potongan(this.value)" class="form-control" id="beli_diskon_beli" name="beli_diskon_beli" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_diskon_beli : ''}}">
-                    </div>
-                    <div class="form-group col-4">
-                        <label for="beli_bayar" class="control-label">Total</label>
-                        <input type="number" readonly class="form-control" required id="beli_bayar" value="{{($data->id) ? $data->beli->beli_tot_beli-$data->beli->beli_diskon_beli : ''}}">
+                        <input type="number" readonly class="form-control" required id="beli_tot_beli" name="beli_tot_beli" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tot_beli : ''}}">
                     </div>
                     @if(!$data->id)
                     <div class="modal-footer col-12">
@@ -296,12 +287,13 @@ $('#rb_tgl').datepicker({
 
     var subtotal = '{{$subtotal}}';
     $("#beli_tot_beli").val(subtotal);
-    $("#beli_bayar").val(subtotal-0);
-    $("#beli_diskon_beli").val(0);
-    function potongan(val){
-        hasil = parseFloat(subtotal)-parseFloat(val);
-        $("#beli_bayar").val(hasil);
-    }
+    // $("#beli_bayar").val(subtotal-0);
+    // $("#beli_diskon_beli").val(0);
+    // function potongan(val){
+    //     hasil = parseFloat(subtotal)-parseFloat(val);
+    //     $("#beli_bayar").val(hasil);
+    // }
+
     function get_select(){
         let harga = $("#dbeli_barang_id option:selected").attr('harga');
         let dbeli_hargapokok = $("#dbeli_barang_id option:selected").attr('dbeli_hargapokok');
