@@ -5,7 +5,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data Barang <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> </h4>
+            @if(Auth::user()->hak_akses == 'Admin Gudang')
+                <h4 class="card-title">Data Barang <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> </h4> @endif
+                @if(Auth::user()->hak_akses == 'Admin Penjualan')
+                <h4 class="card-title">Data Barang </h4> @endif
                 <div class="table-responsive m-t-40">
                     <table id="mydatatable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
@@ -32,8 +35,10 @@
                                 <td>@rp($list->barang_hargabeli)</td>
                                 <td>@rp($list->barang_hargapokok)</td>   
                                 <td>
+                                @if(Auth::user()->hak_akses == 'Admin Gudang')
                                     <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->barang_id}}', '{{$list->barang_nama}}', '{{$list->barang_profit}}', '{{$list->barang_stok}}', '{{$list->barang_hargabeli}}', '{{$list->barang_hargapokok}}', '{{$list->barang_kategori_id}}',)" data-whatever="@mdo"></a>
                                     <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->barang_id}}')"></a>
+                                    @endif
                                 </td>
                             </tr>
                             @php $no++; @endphp

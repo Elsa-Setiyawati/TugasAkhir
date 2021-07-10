@@ -5,7 +5,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data Kategori <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> </h4>
+            @if(Auth::user()->hak_akses == 'Admin Gudang')
+                <h4 class="card-title">Data Kategori <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> </h4>@endif
+                @if(Auth::user()->hak_akses == 'Admin Penjualan')
+                <h4 class="card-title">Data Kategori </h4> @endif
                 <div class="table-responsive m-t-40">
                     <table id="mydatatable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
@@ -21,10 +24,11 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$list->kategori_nama}}</td>
-                                <td>
+                                <td> 
+                                    @if(Auth::user()->hak_akses == 'Admin Gudang')
                                     <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->kategori_id}}', '{{$list->kategori_nama}}')" data-whatever="@mdo"></a>
                                     <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->kategori_id}}')"></a>
-
+                                    @endif
                                 </td>
                             </tr>
                             @php $no++; @endphp

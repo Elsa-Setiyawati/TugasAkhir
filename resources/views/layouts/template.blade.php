@@ -45,6 +45,7 @@
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
+                                    <li><a href="/users/index/{{ Auth::user()->id }}"><i class="ti-settings"></i> Setting</a></li>
                                     <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
