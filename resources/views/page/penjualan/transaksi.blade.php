@@ -7,12 +7,12 @@
             <div class="card-body">
                 <form action="/penjualan/save_transaksi" class="row" method="post">
                 @csrf
-                    <div class="form-group col-4">
+                    <div class="form-group col-3">
                         <input type="hidden" class="form-control" id="jual_id" name="jual_id" value="{{($data->id) ? $data->jual->jual_id : ''}}">
                         <label for="jual_tgl" class="control-label">Tanggal</label>
                         <input type="text" class="form-control" required id="jual_tgl" name="jual_tgl" {{($data->id) ? 'disabled=true' : ''}} value="{{($data->id) ? $data->jual->jual_tgl : ''}}">
                     </div>
-                    <div class="form-group col-4">
+                    <div class="form-group col-3">
                         <label for="jual_pelanggan_id" class="control-label">Pelanggan</label>
                         <select
                                 id="jual_pelanggan_id"
@@ -28,7 +28,7 @@
                                 @endforeach
                             </select>
                     </div>
-                    <div class="form-group col-4">
+                    <div class="form-group col-3">
                         <label for="jual_user_id" class="control-label">Pengguna</label>
                         <select
                                 id="jual_user_id"
@@ -50,8 +50,8 @@
                                 @endforeach
                             </select>
                     </div>
-                    <div class="form-group col-4">
-                        <label for="jual_tot_jual" class="control-label">Nominal</label>
+                    <div class="form-group col-3">
+                        <label for="jual_tot_jual" class="control-label">Total</label>
                         <input type="number" readonly class="form-control" required id="jual_tot_jual" name="jual_tot_jual" value="{{($data->id) ? $data->jual->jual_tot_jual : ''}}">
                     </div>
                     <!-- <div class="form-group col-4">

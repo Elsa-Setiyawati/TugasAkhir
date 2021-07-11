@@ -7,12 +7,12 @@
             <div class="card-body">
                 <form action="/pembelian/save_transaksi" class="row" method="post">
                 @csrf
-                    <div class="form-group col-4">
+                    <div class="form-group col-3">
                         <input type="hidden" class="form-control" id="beli_id" name="beli_id" value="{{($data->id) ? $data->beli->beli_id : ''}}">
                         <label for="beli_tgl" class="control-label">Tanggal</label>
                         <input type="text" class="form-control" id="beli_tgl" name="beli_tgl" {{($data->id) ? 'disabled=true' : ''}} value="{{($data->id) ? $data->beli->beli_tgl : ''}}">
                     </div>
-                    <div class="form-group col-4">
+                    <div class="form-group col-3">
                         <label for="beli_pemasok_id" class="control-label">Pemasok</label>
                         <select
                                 id="beli_pemasok_id"
@@ -28,7 +28,7 @@
                                 @endforeach
                             </select>
                     </div>
-                    <div class="form-group col-4">
+                    <div class="form-group col-3">
                         <label for="beli_user_id" class="control-label">Pengguna</label>
                         <select
                                 id="beli_user_id"
@@ -51,7 +51,7 @@
                             </select>
                     </div>
                     <div class="form-group col-3">
-                        <label for="beli_tot_beli" class="control-label">Nominal</label>
+                        <label for="beli_tot_beli" class="control-label">Total</label>
                         <input type="number" readonly class="form-control" required id="beli_tot_beli" name="beli_tot_beli" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tot_beli : ''}}">
                     </div>
                     @if(!$data->id)
