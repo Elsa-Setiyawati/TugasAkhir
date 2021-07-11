@@ -18,6 +18,12 @@ class UsersController extends Controller
         $data->list = DB::table('users')->get();
         return view('page.users.index', compact('data'));
     }
+    public function edit($id)
+    {
+        $data = new \stdClass();
+        $data->list = DB::table('users')->get();
+        return view('page.users.edit', compact('data'));
+    }
 
     public function store(Request $request)
     {

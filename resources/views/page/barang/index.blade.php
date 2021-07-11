@@ -77,11 +77,11 @@
                         </div>
                         <div class="form-group">
                             <label for="barang_hargabeli" class="control-label">Harga Beli</label>
-                            <input type="number" min="0" class="form-control" required id="barang_hargabeli" name="barang_hargabeli">
+                            <input type="number" min="0" onchange="nom(this.value)" class="form-control" required id="barang_hargabeli" name="barang_hargabeli">
                         </div>
                         <div class="form-group">
                             <label for="barang_hargapokok" class="control-label">Harga Pokok</label>
-                            <input type="number" min="0" class="form-control" required id="barang_hargapokok" name="barang_hargapokok">
+                            <input type="number" min="0" readonly class="form-control" required id="barang_hargapokok" name="barang_hargapokok">
                         </div>                       
                         <div class="form-group">
                             <label for="barang_kategori_id" class="control-label" >Kategori</label>
@@ -130,6 +130,14 @@ var old_nama = null;
         }
         
     }
+
+    function nom(value){
+        if(old_nama==''){
+            $('#barang_hargapokok').val(value);
+        }
+        
+    }
+
     function set_form(title, barang_id, barang_nama, barang_profit, barang_stok, barang_hargabeli, barang_hargapokok,barang_kategori_id) {
         old_nama = (barang_nama) ? barang_nama : '' ;
         $('#titleModal').text(title);

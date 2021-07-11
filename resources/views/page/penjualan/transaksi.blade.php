@@ -38,9 +38,15 @@
                                 data-placeholder="Pilih Pengguna" data-allow-clear="true"
                                 {{($data->id) ? 'disabled=true' : ''}}
                             >
-                            <option value="">==Pilih Data==</option>
+                            <!-- <option value="">==Pilih Data==</option> -->
                                 @foreach(@$data->users as $users)
-                                    <option value="{{ $users->id }}" {{($data->id) ? ($data->jual->jual_user_id==$users->id) ? 'selected' : '' : ''}}>{{ $users->name }}</option>
+                                    <option value="{{ $users->id }}"
+                                     @if($data->id) 
+                                     {{($data->jual->jual_user_id==$users->id) ? 'selected' : '' }}
+                                     @else
+                                     {{($users->id==Auth::user()->id) ? 'selected' : 'disabled' }}
+                                     @endif
+                                    >{{ $users->name }}</option>
                                 @endforeach
                             </select>
                     </div>
