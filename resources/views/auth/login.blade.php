@@ -50,7 +50,7 @@
                                 @enderror
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="col-md-12">
                             <div class="checkbox checkbox-primary pull-left p-t-0">
                             <input id="checkbox-signup" type="checkbox">
@@ -58,7 +58,7 @@
                      </div>
                         <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right">
                         <i class="fa fa-lock m-r-5"></i> Forgot pwd?</a> </div>
-                    </div>
+                    </div> -->
                     
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">

@@ -5,7 +5,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data Pemasok <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> </h4>
+            @if(Auth::user()->hak_akses == 'Admin Gudang')
+                <h4 class="card-title">Data Pemasok <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> </h4>@endif
+                @if(Auth::user()->hak_akses == 'Pemilik')
+                <h4 class="card-title">Data Pemasok </h4> @endif
                 <div class="table-responsive m-t-40">
                     <table id="mydatatable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
@@ -25,9 +28,9 @@
                                 <td>{{$list->pemasok_nama}}</td>
                                 <td>{{$list->pemasok_alamat}}</td>
                                 <td>{{$list->pemasok_notelp}}</td>
-                                <td>
+                                <td>@if(Auth::user()->hak_akses == 'Admin Gudang')
                                     <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->pemasok_id}}', '{{$list->pemasok_nama}}', '{{$list->pemasok_alamat}}', '{{$list->pemasok_notelp}}' )" data-whatever="@mdo"></a>
-                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->pemasok_id}}')"></a>
+                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->pemasok_id}}')"></a>@endif
 
                                 </td>
                             </tr>
