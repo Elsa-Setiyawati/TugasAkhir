@@ -48,6 +48,7 @@ Route::group(['prefix'=>'/pelanggan'],function(){
 Route::group(['prefix'=>'/users'],function(){
     Route::get('/','UsersController@index')->name('users.index');
     Route::get('/edit/{id}','UsersController@edit')->name('users.edit');
+    Route::post('/storeedit','UsersController@storeedit')->name('users.storeedit');
     Route::post('/store','UsersController@store')->name('users.store');
     Route::get('/delete/{id}','UsersController@delete')->name('users.delete');
 });

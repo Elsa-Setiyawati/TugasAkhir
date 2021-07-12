@@ -5,7 +5,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data User <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> </h4>
+            @if(Auth::user()->hak_akses == 'Pemilik')
+                <h4 class="card-title">Data User <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> </h4>@endif
+                @if(Auth::user()->hak_akses != 'Pemilik')<h4 class="card-title">Data User</h4>@endif
                 <div class="table-responsive m-t-40">
                     <table id="mydatatable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
@@ -26,9 +28,10 @@
                                 <td>{{$list->email}}</td>
                                 <td>{{$list->hak_akses}}</td>
                                 <td>
+                                @if(Auth::user()->hak_akses == 'Pemilik')
                                     <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->id}}', '{{$list->name}}', '{{$list->email}}', '{{$list->hak_akses}}' )" data-whatever="@mdo"></a>
                                     <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->id}}')"></a>
-
+                                    @endif
                                 </td>
                             </tr>
                             @php $no++; @endphp
