@@ -13,7 +13,7 @@
                                 <th>No Faktur</th>
                                 <th>Tanggal</th>
                                 <th>Pelanggan</th>
-                                <th>Nominal</th>
+                                <th>Total</th>
                                 <th>Retur</th>
                                 <th>Action</th>
                             </tr>

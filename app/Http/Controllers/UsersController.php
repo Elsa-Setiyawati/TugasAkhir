@@ -14,7 +14,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $data = new \stdClas();
+        $data = new \stdClass();
         $data->list = DB::table('users')->get();
         return view('page.users.index', compact('data'));
     }

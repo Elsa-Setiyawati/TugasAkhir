@@ -54,14 +54,6 @@
                         <label for="jual_tot_jual" class="control-label">Total</label>
                         <input type="number" readonly class="form-control" required id="jual_tot_jual" name="jual_tot_jual" value="{{($data->id) ? $data->jual->jual_tot_jual : ''}}">
                     </div>
-                    <!-- <div class="form-group col-4">
-                        <label for="jual_diskon_jual" class="control-label">Potongan</label>
-                        <input type="number" onchange="potongan(this.value)" class="form-control" id="jual_diskon_jual" name="jual_diskon_jual" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->jual->jual_diskon_jual : ''}}">
-                    </div>
-                    <div class="form-group col-4">
-                        <label for="jual_bayar" class="control-label">Total</label>
-                        <input type="number" readonly class="form-control" required id="jual_bayar" value="{{($data->id) ? $data->jual->jual_tot_jual-$data->jual->jual_diskon_jual : ''}}">
-                    </div> -->
                     @if(!$data->id)
                     <div class="modal-footer col-12">
                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -228,7 +220,6 @@
 </div>
 
 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-    <form action="/penjualan/return_store" method="post">
         @csrf
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -275,11 +266,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary" onclick="save()">Submit</button>
                 </div>
             </div>
         </div>
-    </form>
 
 </div>
 
@@ -348,6 +338,20 @@ $('#rj_tgl').datepicker({
         document.getElementById('rj_jml').max = parseFloat(rj_jml) - jml_retur;
     }
 
+    function save() {
+        swal({
+            title: "simpan Data",
+            text: "Anda Yakin Data Ini Benar?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Ya, Benar!",
+            cancelButtonText: "Tidak",
+            confirmButtonColor: "#DD6B55",
+            closeOnConfirm: false
+        }, function() {
+            window.location.href = window.location.origin + "/penjualan/return_store";
+        });
+    }
     function del_data(id) {
         swal({
             title: "Hapus Data",
