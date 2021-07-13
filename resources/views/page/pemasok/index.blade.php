@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
             @if(Auth::user()->hak_akses == 'Admin Gudang')
-                <h4 class="card-title">Data Pemasok <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> </h4>@endif
+                <h4 class="card-title">Data Pemasok <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Pemasok')" data-whatever="@mdo">Tambah Data</a> </h4>@endif
                 @if(Auth::user()->hak_akses == 'Pemilik')
                 <h4 class="card-title">Data Pemasok </h4> @endif
                 <div class="table-responsive m-t-40">

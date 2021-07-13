@@ -7,12 +7,12 @@
             <div class="card-body">
                 <form action="/pembelian/save_transaksi" class="row" method="post">
                 @csrf
-                    <div class="form-group col-3">
+                    <div class="form-group col-4">
                         <input type="hidden" class="form-control" id="beli_id" name="beli_id" value="{{($data->id) ? $data->beli->beli_id : ''}}">
                         <label for="beli_tgl" class="control-label">Tanggal</label>
-                        <input type="text" class="form-control" id="beli_tgl" name="beli_tgl" {{($data->id) ? 'disabled=true' : ''}} value="{{($data->id) ? $data->beli->beli_tgl : ''}}">
+                        <input type="text" class="form-control" id="beli_tgl" required name="beli_tgl" {{($data->id) ? 'disabled=true' : ''}} value="{{($data->id) ? $data->beli->beli_tgl : ''}}">
                     </div>
-                    <div class="form-group col-3">
+                    <div class="form-group col-4">
                         <label for="beli_pemasok_id" class="control-label">Pemasok</label>
                         <select
                                 id="beli_pemasok_id"
@@ -28,29 +28,7 @@
                                 @endforeach
                             </select>
                     </div>
-                    <div class="form-group col-3">
-                        <label for="beli_user_id" class="control-label">Pengguna</label>
-                        <select
-                                id="beli_user_id"
-                                class="form-control select2"
-                                name="beli_user_id"
-                                required
-                                data-placeholder="Pilih Pengguna" data-allow-clear="true"
-                                {{($data->id) ? 'disabled=true' : ''}}
-                            >
-                            <!-- <option value="">==Pilih Data==</option> -->
-                                @foreach(@$data->users as $users)
-                                    <option value="{{ $users->id }}" 
-                                    @if($data->id) 
-                                     {{($data->beli->beli_user_id==$users->id) ? 'selected' : '' }}
-                                     @else
-                                     {{($users->id==Auth::user()->id) ? 'selected' : 'disabled' }}
-                                     @endif
-                                    >{{ $users->name }}</option>
-                                @endforeach
-                            </select>
-                    </div>
-                    <div class="form-group col-3">
+                    <div class="form-group col-4">
                         <label for="beli_tot_beli" class="control-label">Total</label>
                         <input type="number" readonly class="form-control" required id="beli_tot_beli" name="beli_tot_beli" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tot_beli : ''}}">
                     </div>
@@ -68,7 +46,7 @@
             <div class="card-body">
                 <h4 class="card-title">Data Barang 
                 @if(!$data->id) 
-                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Data')" data-whatever="@mdo">Tambah Data</a> 
+                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Tambah Barang Pembelian')" data-whatever="@mdo">Tambah Data</a> 
                 @endif
                 </h4>
                 <div class="table-responsive m-t-40">
@@ -182,11 +160,10 @@
                     <form>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="dbeli_id" name="dbeli_id">
-                            <!-- <input type="hidden" class="form-control" id="dbeli_hargapokok" name="dbeli_hargapokok"> -->
                             <label for="dbeli_barang_id" class="control-label">Barang</label>
                             <select
-                            readonly required
                                 id="dbeli_barang_id"
+                                required
                                 class="form-control select2"
                                 name="dbeli_barang_id"
                                 data-placeholder="Pilih Barang" data-allow-clear="true"
@@ -204,7 +181,7 @@
                         </div>
                         <div class="form-group">
                             <label for="dbeli_harga" class="control-label">Harga</label>
-                            <input type="text" class="form-control" min="0" required id="dbeli_harga" name="dbeli_harga">
+                            <input type="number" class="form-control" min="0" required id="dbeli_harga" name="dbeli_harga">
                         </div>
                     </form>
                 </div>
@@ -259,7 +236,7 @@
                         </div>
                         <div class="form-group">
                             <label for="rb_harga" class="control-label">Harga</label>
-                            <input type="text" class="form-control" min="0" readonly required id="rb_harga" name="rb_harga">
+                            <input type="number" class="form-control" min="0" readonly required id="rb_harga" name="rb_harga">
                         </div>
                     </form>
                 </div>
