@@ -28,6 +28,28 @@
                                 @endforeach
                             </select>
                     </div>
+                    <div class="form-group col-3">
+                        <label for="beli_user_id" class="control-label">Pengguna</label>
+                        <select
+                                id="beli_user_id"
+                                class="form-control select2"
+                                name="beli_user_id"
+                                required
+                                data-placeholder="Pilih Pengguna" data-allow-clear="true"
+                                {{($data->id) ? 'disabled=true' : ''}}
+                            >
+                            <!-- <option value="">==Pilih Data==</option> -->
+                                @foreach(@$data->users as $users)
+                                    <option value="{{ $users->id }}" 
+                                    @if($data->id) 
+                                     {{($data->beli->beli_user_id==$users->id) ? 'selected' : '' }}
+                                     @else
+                                     {{($users->id==Auth::user()->id) ? 'selected' : 'disabled' }}
+                                     @endif
+                                    >{{ $users->name }}</option>
+                                @endforeach
+                            </select>
+                    </div>
                     <div class="form-group col-4">
                         <label for="beli_tot_beli" class="control-label">Total</label>
                         <input type="number" readonly class="form-control" required id="beli_tot_beli" name="beli_tot_beli" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tot_beli : ''}}">
@@ -177,11 +199,11 @@
                         </div>
                         <div class="form-group">
                             <label for="dbeli_jml" class="control-label">Jumlah</label>
-                            <input type="number" class="form-control" min="0" required id="dbeli_jml" name="dbeli_jml">
+                            <input type="number" class="form-control" min="1" required id="dbeli_jml" name="dbeli_jml">
                         </div>
                         <div class="form-group">
                             <label for="dbeli_harga" class="control-label">Harga</label>
-                            <input type="number" class="form-control" min="0" required id="dbeli_harga" name="dbeli_harga">
+                            <input type="number" class="form-control" min="1" required id="dbeli_harga" name="dbeli_harga">
                         </div>
                     </form>
                 </div>
@@ -236,7 +258,7 @@
                         </div>
                         <div class="form-group">
                             <label for="rb_harga" class="control-label">Harga</label>
-                            <input type="number" class="form-control" min="0" readonly required id="rb_harga" name="rb_harga">
+                            <input type="number" class="form-control" min="1" readonly required id="rb_harga" name="rb_harga">
                         </div>
                     </form>
                 </div>
