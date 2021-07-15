@@ -28,18 +28,19 @@
                                 @endforeach
                             </select>
                     </div>
-                    <div class="form-group col-3">
-                        <label for="beli_user_id" class="control-label">Pengguna</label>
+                    <!-- <div class="form-group col-3"> -->
+                    <input type="hidden" class="form-control" id="beli_user_id" name="beli_user_id" value="{{($data->id) ? $data->beli->beli_user_id : Auth::user()->id}}">
+                        <!-- <label for="beli_user_id" class="control-label">Pengguna</label>
                         <select
-                                id="beli_user_id"
+                                id="beli_user_id_kw"
                                 class="form-control select2"
                                 name="beli_user_id"
                                 required
                                 data-placeholder="Pilih Pengguna" data-allow-clear="true"
                                 {{($data->id) ? 'disabled=true' : ''}}
-                            >
+                            > -->
                             <!-- <option value="">==Pilih Data==</option> -->
-                                @foreach(@$data->users as $users)
+                                <!-- @foreach(@$data->users as $users)
                                     <option value="{{ $users->id }}" 
                                     @if($data->id) 
                                      {{($data->beli->beli_user_id==$users->id) ? 'selected' : '' }}
@@ -49,7 +50,7 @@
                                     >{{ $users->name }}</option>
                                 @endforeach
                             </select>
-                    </div>
+                    </div> -->
                     <div class="form-group col-4">
                         <label for="beli_tot_beli" class="control-label">Total</label>
                         <input type="number" readonly class="form-control" required id="beli_tot_beli" name="beli_tot_beli" {{($data->id) ? 'readonly' : ''}} value="{{($data->id) ? $data->beli->beli_tot_beli : ''}}">

@@ -14,6 +14,7 @@
     <script src="{{ asset('material/js/dashboard1.js') }}"></script>
     <script src="{{ asset('assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
     <script src="{{ asset('assets/plugins/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/sweetalert/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>

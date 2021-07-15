@@ -7,6 +7,7 @@
 <link href="{{ asset('assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/plugins/c3-master/c3.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('assets/plugins/sweetalert/sweetalert2.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('material/css/style.css') }}" rel="stylesheet">
 <link href="{{ asset('material/css/colors/blue.css') }}" id="theme" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
