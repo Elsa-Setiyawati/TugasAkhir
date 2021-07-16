@@ -219,7 +219,7 @@
 </div>
 
 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-    <form action="/pembelian/return_store" method="post">
+    <form id="form_retur" action="/pembelian/return_store" method="post">
         @csrf
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -235,10 +235,10 @@
                             <label for="rb_barang_id" class="control-label">Barang</label>
                             <input type="hidden" class="form-control" id="rb_barang_id" name="rb_barang_id">
                             <select 
-                            readonly required
-                             
+                            readonly disabled
+
                                 id="rb_barang_id_kw" 
-                                class="form-control js-select2-disable"
+                                class="form-control "
                                 data-allow-clear="true"
                                 onchange="get_select()"
                                 style="width: 100%"
@@ -265,7 +265,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" onclick="submit_form();" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -277,16 +277,32 @@
 
 @section('js_after')
 <script>
+
+    function submit_form(){
+        swal({
+            title: "Simpan Data",
+            text: "Anda Yakin Benar ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak",
+            confirmButtonColor: "#DD6B55",
+            closeOnConfirm: false
+        }, function() {
+            $('#form_retur').submit()
+        });
+    }
+    
 $('#beli_tgl').datepicker({
     format: "yyyy-mm-dd",
     endDate: '+1d',
 datesDisabled: '+1d'
 });
-
 $('#rb_tgl').datepicker({
     format: "yyyy-mm-dd",
-    startDate: '-0d'
+    startDate: '{{($data->id) ? $data->beli->beli_tgl : ''}}'
 });
+
   @if($data->id)
     var retur_pembelian = @json($data->retur_pembelian, JSON_PRETTY_PRINT) ;
     @endif
@@ -327,6 +343,7 @@ $('#rb_tgl').datepicker({
         })
         let sisa = parseFloat(rb_jml) - jml_retur;
         let sisanya = (stok_barang<=sisa) ? stok_barang :sisa ;
+        
         // console.log('sias',sisa);
         // console.log('stok_barang',stok_barang);
         // console.log('goblok',(stok_barang<=sisa) ? stok_barang :sisa);
@@ -337,7 +354,7 @@ $('#rb_tgl').datepicker({
         // $('#rb_id').val(rb_id);
         $('#rb_beli_id').val(rb_beli_id);
         $('#rb_barang_id').val(rb_barang_id);
-        $("#rb_barang_id_kw").select2('val',rb_barang_id);
+        $("#rb_barang_id_kw").val(rb_barang_id);
         // $('#rb_barang_id').val(rb_barang_id);
         // $('#rb_tgl').val(rb_tgl);
         $('#rb_jml').val(sisanya);

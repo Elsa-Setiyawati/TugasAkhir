@@ -20,7 +20,9 @@ class PembelianController extends Controller
         $data->list = DB::table('pembelian')
         ->join('pemasok', 'pemasok_id', 'beli_pemasok_id')
         ->join('users', 'id', 'beli_user_id')
+        ->orderby('beli_tgl')
         ->get();
+        // dd($data);
         return view('page.pembelian.index', compact('data'));
     }
 
