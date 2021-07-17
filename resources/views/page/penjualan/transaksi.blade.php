@@ -199,7 +199,7 @@
 </div>
 
 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-<form action="/penjualan/return_store" method="post">
+<form id="form_retur" action="/penjualan/return_store" method="post">
  @csrf
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -216,10 +216,10 @@
                             <label for="rj_barang_id" class="control-label">Barang</label>
                             <input type="hidden" class="form-control" id="rj_barang_id" name="rj_barang_id">
                             <select
-                            readonly required 
+                            readonly disabled 
                             
                                 id="rj_barang_id_kw"
-                                class="form-control js-select2-disable"
+                                class="form-control"
                                 data-allow-clear="true"
                                 onchange="get_select()"
                                 style="width: 100%"
@@ -246,7 +246,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" onclick="submit_form();" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -257,6 +257,9 @@
 
 @section('js_after')
 <script>
+    
+    
+
 $('#jual_tgl').datepicker({
     format: "yyyy-mm-dd",
     endDate: '+1d',
@@ -265,7 +268,7 @@ datesDisabled: '+1d'
 
 $('#rj_tgl').datepicker({
     format: "yyyy-mm-dd",
-    startDate: '-0d'
+    startDate: '{{($data->id) ? $data->jual->jual_tgl : ''}}'
 });
     @if($data->id)
     var retur_penjualan = @json($data->retur_penjualan, JSON_PRETTY_PRINT) ;
@@ -310,7 +313,7 @@ $('#rj_tgl').datepicker({
         $('#rj_id').val(rj_id);
         $('#rj_jual_id').val(rj_jual_id);
         $('#rj_barang_id').val(rj_barang_id);
-        $("#rj_barang_id_kw").select2("val", rj_barang_id);
+        $("#rj_barang_id_kw").val(rj_barang_id);
         $('#rj_tgl').val(rj_tgl);
         $('#rj_jml').val(parseFloat(rj_jml) - jml_retur);
         $('#rj_harga').val(rj_harga);
@@ -318,20 +321,22 @@ $('#rj_tgl').datepicker({
         document.getElementById('rj_jml').max = parseFloat(rj_jml) - jml_retur;
     }
 
-    function save() {
+    function submit_form(){
         swal({
-            title: "simpan Data",
-            text: "Anda Yakin Data Ini Benar?",
+            title: "Simpan Data",
+            text: "Anda Yakin Benar ?",
             type: "warning",
             showCancelButton: true,
-            confirmButtonText: "Ya, Benar!",
+            confirmButtonText: "Ya",
             cancelButtonText: "Tidak",
             confirmButtonColor: "#DD6B55",
             closeOnConfirm: false
         }, function() {
-            window.location.href = window.location.origin + "/penjualan/return_store";
+            $('#form_retur').submit()
         });
     }
+
+
     function del_data(id) {
         swal({
             title: "Hapus Data",

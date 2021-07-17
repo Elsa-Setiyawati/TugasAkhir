@@ -17,7 +17,9 @@
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th>No Telp</th>
+                                @if(Auth::user()->hak_akses == 'Admin Gudang')
                                 <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -28,11 +30,12 @@
                                 <td>{{$list->pemasok_nama}}</td>
                                 <td>{{$list->pemasok_alamat}}</td>
                                 <td>{{$list->pemasok_notelp}}</td>
-                                <td>@if(Auth::user()->hak_akses == 'Admin Gudang')
+                                @if(Auth::user()->hak_akses == 'Admin Gudang')
+                                <td>
                                     <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->pemasok_id}}', '{{$list->pemasok_nama}}', '{{$list->pemasok_alamat}}', '{{$list->pemasok_notelp}}' )" data-whatever="@mdo"></a>
-                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->pemasok_id}}')"></a>@endif
-
+                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->pemasok_id}}')"></a>
                                 </td>
+                                @endif
                             </tr>
                             @php $no++; @endphp
                             @endforeach

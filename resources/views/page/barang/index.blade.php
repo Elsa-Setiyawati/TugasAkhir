@@ -22,7 +22,9 @@
                                 <th>Stok</th>
                                 <th>Harga Beli</th>
                                 <th>Harga Pokok</th>
+                                @if(Auth::user()->hak_akses == 'Admin Gudang')
                                 <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -36,12 +38,12 @@
                                 <td>{{$list->barang_stok}}</td>
                                 <td>@rp($list->barang_hargabeli)</td>
                                 <td>@rp($list->barang_hargapokok)</td>   
-                                <td>
                                 @if(Auth::user()->hak_akses == 'Admin Gudang')
+                                <td>
                                     <a class="btn btn-success text-white  ti-pencil-alt" data-toggle="modal" data-target="#exampleModal" onclick="set_form('Edit Data', '{{$list->barang_id}}', '{{$list->barang_nama}}', '{{$list->barang_profit}}', '{{$list->barang_stok}}', '{{$list->barang_hargabeli}}', '{{$list->barang_hargapokok}}', '{{$list->barang_kategori_id}}',)" data-whatever="@mdo"></a>
-                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->barang_id}}')"></a>
-                                    @endif
+                                    <a class="btn btn-warning text-white ti-trash" onclick="del_data('{{$list->barang_id}}')"></a>                                  
                                 </td>
+                                @endif
                             </tr>
                             @php $no++; @endphp
                             @endforeach

@@ -20,6 +20,7 @@ class PenjualanController extends Controller
         $data->list = DB::table('penjualan')
         ->join('pelanggan', 'pelanggan_id', 'jual_pelanggan_id')
         ->join('users', 'id', 'jual_user_id')
+        ->orderby('jual_tgl')
         ->get();
         return view('page.penjualan.index', compact('data'));
     }
