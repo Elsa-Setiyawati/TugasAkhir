@@ -252,10 +252,12 @@
                         <div class="form-group">
                             <label for="rb_tgl" class="control-label">Tanggal</label>
                             <input type="text" class="form-control" required id="rb_tgl" name="rb_tgl">
+                            <span id="alert_rb_tgl" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label for="rb_jml" class="control-label">Jumlah</label>
                             <input type="number" class="form-control" min="1" required id="rb_jml" name="rb_jml">
+                            <span id="alert_rb_jml" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label for="rb_harga" class="control-label">Harga</label>
@@ -279,18 +281,41 @@
 <script>
 
     function submit_form(){
-        swal({
-            title: "Simpan Data",
-            text: "Anda Yakin Benar ?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Ya",
-            cancelButtonText: "Tidak",
-            confirmButtonColor: "#DD6B55",
-            closeOnConfirm: false
-        }, function() {
-            $('#form_retur').submit()
-        });
+        var form_valid = true;
+        $('#alert_rb_tgl').text('');
+        $('#alert_rb_jml').text('');
+        
+        if($('#rb_tgl').val()==''){
+            form_valid = false;
+            $('#alert_rb_tgl').text('tanggal tidak boleh kosong');
+        }
+
+        if($('#rb_jml').val()==''){
+            form_valid = false;
+            $('#alert_rb_jml').text('jumlah tidak boleh kosong');
+        }else if($('#rb_jml').val()< $("#rb_jml").attr('min')){
+            form_valid = false;
+            $('#alert_rb_jml').text('jumlah minimal tidak sesuai');
+        }else if($('#rb_jml').val()>$("#rb_jml").attr('max')){
+            form_valid = false;
+            $('#alert_rb_jml').text('jumlah maximal tidak sesuai');
+        }
+
+        if(form_valid == true ){
+            swal({
+                title: "Simpan Data",
+                text: "Anda Yakin Benar ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Ya",
+                cancelButtonText: "Tidak",
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: false
+            }, function() {
+                $('#form_retur').submit()
+            });
+        }
+        
     }
     
 $('#beli_tgl').datepicker({

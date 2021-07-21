@@ -233,10 +233,12 @@
                         <div class="form-group">
                             <label for="rj_tgl" class="control-label">Tanggal</label>
                             <input type="text" class="form-control" required id="rj_tgl" name="rj_tgl">
+                            <span id="alert_rj_tgl" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label for="rj_jml" class="control-label">Jumlah</label>
                             <input type="number" class="form-control" min="1" required id="rj_jml" name="rj_jml">
+                            <span id="alert_rj_jml" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label for="rj_harga" class="control-label">Harga</label>
@@ -257,6 +259,42 @@
 
 @section('js_after')
 <script>
+
+function submit_form(){
+        var form_valid = true;
+        $('#alert_rj_tgl').text('');
+        $('#alert_rj_jml').text('');
+        
+        if($('#rj_tgl').val()==''){
+            form_valid = false;
+            $('#alert_rj_tgl').text('tanggal tidak boleh kosong');
+        }
+        if($('#rj_jml').val()==''){
+            form_valid = false;
+            $('#alert_rj_jml').text('jumlah tidak boleh kosong');
+        }else if($('#rj_jml').val()< $("#rj_jml").attr('min')){
+            form_valid = false;
+            $('#alert_rj_jml').text('jumlah minimal tidak sesuai');
+        }else if($('#rj_jml').val()>$("#rj_jml").attr('max')){
+            form_valid = false;
+            $('#alert_rj_jml').text('jumlah maximal tidak sesuai');
+        }
+        if(form_valid == true ){
+            swal({
+                title: "Simpan Data",
+                text: "Anda Yakin Benar ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Ya",
+                cancelButtonText: "Tidak",
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: false
+            }, function() {
+                $('#form_retur').submit()
+            });
+        }
+        
+    }
     
     
 
@@ -319,21 +357,6 @@ $('#rj_tgl').datepicker({
         $('#rj_harga').val(rj_harga);
         $('#rj_hargapokok').val(rj_hargapokok);
         document.getElementById('rj_jml').max = parseFloat(rj_jml) - jml_retur;
-    }
-
-    function submit_form(){
-        swal({
-            title: "Simpan Data",
-            text: "Anda Yakin Benar ?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Ya",
-            cancelButtonText: "Tidak",
-            confirmButtonColor: "#DD6B55",
-            closeOnConfirm: false
-        }, function() {
-            $('#form_retur').submit()
-        });
     }
 
 
